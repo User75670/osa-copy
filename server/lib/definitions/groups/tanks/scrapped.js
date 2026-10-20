@@ -31,7 +31,7 @@ Class.whirlwind_bent = {
                 ANGLE: 15
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, { reload: 5/3 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, { reload: 5 / 3 }]),
                 TYPE: "satelliteBullet",
                 INDEPENDENT_MASTER: true
             }
@@ -91,7 +91,7 @@ Class.hurricane_bent = {
             ANGLE: 45
         },
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.flankGuard, {reload: 5/3}]),
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.flankGuard, {reload: 5 / 3}]),
             TYPE: "satelliteBullet",
             INDEPENDENT_MASTER: true
         }
@@ -130,7 +130,7 @@ Class.maelstrom_bent = {
                 DELAY: 0.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, {reload: 5/3}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, {reload: 5 / 3}]),
                 TYPE: "satelliteBullet",
                 INDEPENDENT_MASTER: true
             }
@@ -149,7 +149,7 @@ Class.maelstrom_bent = {
                 WIDTH: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, {reload: 5 / 3}]),
                 TYPE: "satelliteBullet",
                 INDEPENDENT_MASTER: true
             }
@@ -187,7 +187,7 @@ Class.monsoon_bent = {
                 ANGLE: 30
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, {reload: 5/3}]),
+                SHOOT_SETTINGS: combineStats([g.trap, {reload: 5 / 3}]),
                 TYPE: "satelliteTrap",
                 STAT_CALCULATOR: "trap",
                 INDEPENDENT_MASTER: true
@@ -217,7 +217,7 @@ Class.tempest_bent = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, {reload: 5/3}]), // guess, if it turns out to use satelliteDrones i'll change it
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, {reload: 5 / 3}]), // guess, if it turns out to use satelliteDrones i'll change it
                 TYPE: "satelliteBullet",
                 INDEPENDENT_MASTER: true
             }
@@ -242,7 +242,7 @@ Class.typhoon_bent = {
                 WIDTH: 12
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 5/3}]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 5 / 3}]),
                 TYPE: "satelliteBullet",
                 INDEPENDENT_MASTER: true
             }
@@ -305,6 +305,35 @@ Class.volute = {
 };
 
 // Tier 3 (Level 45)
+Class.bender = {
+    PARENT: "genericTank",
+    LABEL: "Bender",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.spawner.BODY,
+    GUNS: [
+        {
+            POSITION: [4.5, 10, 1, 10.5, 0, 0, 0]
+        },
+        {
+            POSITION: [1, 12, 1, 15, 0, 0, 0],
+            PROPERTIES: {
+                MAX_CHILDREN: 4, // todo: check if this is still 3
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
+                TYPE: "desmosMinion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true
+            }
+        },
+        {
+            POSITION: [11.5, 12, 1, 0, 0, 0, 0]
+        },
+        ...weaponMirror({
+            POSITION: [5, 7.5, 2.5, 1, -4.5, 95, 0]
+        })
+    ]
+};
 Class.bigMama = {
     PARENT: "genericFlail",
     LABEL: "BIG MAMA",
@@ -674,53 +703,39 @@ Class.oroboros = {
         })
     ]
 };
-Class.prodigy = {
+Class.python = {
     PARENT: "genericTank",
-    LABEL: "Prodigy",
+    LABEL: "Python", //"Super Spiral",
     DANGER: 7,
-    STAT_NAMES: {
-        ...statnames.mixed,
-        RELOAD: "Reload / Max Drone Count"
-    },
-    SHAPE: 6,
+    STAT_NAMES: statnames.desmos,
     GUNS: [
-        ...weaponArray({
+        {
             POSITION: {
-                LENGTH: 13,
-                WIDTH: 7,
-                ASPECT: 1.6,
-                ANGLE: 180
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.5, size: 2, damage: 0.95}]),
-                TYPE: "sunchip",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "necro",
-                WAIT_TO_CYCLE: true,
-                DELAY_SPAWN: false,
-                MAX_CHILDREN: 2
-            }
-        }, 3, {delayIncrement: 1/3}),
-        ...weaponArray([{
-            POSITION: {
-                LENGTH: 14,
-                WIDTH: 9
+                LENGTH: 22,
+                WIDTH: 12
             }
         },
         {
             POSITION: {
-                LENGTH: 4,
-                WIDTH: 9,
-                ASPECT: 1.5,
-                X: 14
+                LENGTH: 24,
+                WIDTH: 8,
+                ASPECT: -1.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, { range: 0.5, speed: 0.7, maxSpeed: 0.7 }]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5 / 3 }]),
+                TYPE: ["pythonBullet", {CONTROLLERS: ["snake"]}]
             }
-        }], 3)
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 6,
+                ASPECT: -4,
+                X: -6.75,
+                Y: -6,
+                ANGLE: 87.5
+            }
+        })
     ]
 };
 Class.rocket = makeSnake({

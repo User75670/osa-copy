@@ -62,6 +62,7 @@ const getName = (name, gamemodeData) => {
             //old_forge: "Old Forge",
         limbo: "Limbo",
         nexus: "Nexus",
+        sandbox_nexus: "Sandbox", // Same as Sandbox even if it's internally a different gamemode ("e0z" in arras)
 
         // Miscellaneous
         tartarus: "Tartarus",
@@ -93,21 +94,20 @@ const getName = (name, gamemodeData) => {
         space: "Space"
     };
     return nameMap[name];
-}
+};
 
 // Here is our actual game server
 class gameServer {
-    constructor(host, port, gamemode, region, serverHost, location, webProperties, serverProperties, isfeatured, isUnlisted, isPrivate, parentPort, loaderGlobal) {
+    constructor(host, port, gamemode, region, location, webProperties, serverProperties, isfeatured, isUnlisted, isPrivate, parentPort, loaderGlobal) {
     // Override the default settings in Config.js.
         Object.keys(serverProperties).forEach(key => {
             Config[key] = serverProperties[key];
-        })
+        });
         // Define host, port, gamemode, region, and publicly define webProperties, and serverProperties.
         this.host = host;
         this.port = port;
         this.gamemode = gamemode;
         this.region = region;
-        this.serverhost = serverHost;
         this.location = location;
         this.webProperties = webProperties;
         this.serverProperties = serverProperties;
@@ -171,17 +171,16 @@ class gameServer {
             unlisted: this.unlisted,
             private: this.private,
             region: this.region,
-            serverhost: this.serverhost,
             location: this.location,
             gameMode: this.name,
             gameManager: includegameManager ? this : false
-        }
+        };
     }
 
     // Create a new web server class to handle incoming requests
     startWebServer(socketManager) {
     // Create the socket
-        this.wsServer = new ws.WebSocketServer({ noServer: true });
+        this.wsServer = new ws.WebSocketServer({ noServer: true, perMessageDeflate: Config.per_message_deflate });
         // Create the http server
         this.httpServer = http.createServer((req, res) => {
             res.setHeader("Access-Control-Allow-Origin", "*");
@@ -218,6 +217,7 @@ class gameServer {
                         res.writeHead(200);
                         res.end(JSON.stringify([{
                             ip: this.host,
+                            id: this.webProperties.id,
                             players: this.socketManager.clients.length,
                             gameMode: this.name
                         }]));
@@ -242,7 +242,7 @@ class gameServer {
             this.wsServer.handleUpgrade(req, socket, head, ws => {
                 if (req.url.startsWith("/api/editor")) this.editor.connect(ws, req);
                 else socketManager.connect(ws, req);
-            })
+            });
         });
     }
 
@@ -257,7 +257,7 @@ class gameServer {
                 let server = global.servers[i];
                 if (server.loadedViaMainServer) global.servers[i] = this.getInfo(true);
             }
-            console.log(global.servers.length == 1 ? "Your game server has successfully started." : "Game server " + this.name + " successfully booted up via main server (port " + this.port + ")");
+            console.log(global.servers.length == 1 ? `Your game server (${this.name}) has successfully started. Listening on port ${this.port}` : `Game server #${this.webProperties.id} (${this.name}) successfully started via main server. Listening on port ${this.port}`);
             onServerLoaded();
             return;
         };
@@ -269,7 +269,7 @@ class gameServer {
         this.start();
 
         // If no errors has accoured then annouce that the game server has succssfully booted up.
-        console.log("Game server " + this.name + " successfully started. Listening on port", this.port);
+        console.log(`Game server #${this.webProperties.id} (${this.name}) successfully started. Listening on port ${this.port}`);
 
         // Send the info to the main server so the client can get the info.
         this.parentPort.postMessage([false, this.getInfo()]);
@@ -410,7 +410,7 @@ class gameServer {
                         id: x * this.room.wallGrid.xgrid + y
                     };
                 }
-            }
+            };
         }
 
         // Set properties.
@@ -420,7 +420,7 @@ class gameServer {
 
         // Are we in the room?
         this.room.isInRoom = location => {
-            return location.x >= -this.room.width / 2 && location.x <= this.room.width / 2 && location.y >= -this.room.height / 2 && location.y <= this.room.height / 2
+            return location.x >= -this.room.width / 2 && location.x <= this.room.width / 2 && location.y >= -this.room.height / 2 && location.y <= this.room.height / 2;
         };
 
         // Are we near the circle?
@@ -582,7 +582,7 @@ class gameServer {
                 o.minimapColor = "yellow";
                 o.alwaysActive = true;
             }
-        }, 500)
+        }, 500);
         // Every second we check how well arena closers are doing
         let ticks = 0;
         let loop = setInterval(() => {
@@ -649,8 +649,8 @@ class gameServer {
                 global.grid.clear();
                 global.spawnPoint = undefined;
                 this.onEnd();
-            }, 1000)
-        }, 1000)
+            }, 1000);
+        }, 1000);
     }
 
     onEnd() {

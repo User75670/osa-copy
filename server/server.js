@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
-const pjson = require("../package.json")
+const pjson = require("../package.json");
 
 const { Worker } = require("worker_threads");
 
@@ -60,16 +60,19 @@ let server; // HTTP server instance
 // Attempt to create a WebSocket server instance using the 'ws' package
 try {
     const WebSocketServer = require("ws").WebSocketServer;
-    wsServer = new WebSocketServer({ noServer: true });
+    wsServer = new WebSocketServer({ noServer: true, perMessageDeflate: Config.per_message_deflate });
 } catch(err) {
-    throw new Error(
-        "Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal."
-    );
+    throw new Error("Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal.");
 }
 
 // Log a warning if Access-Control-Allow-Origin is enabled
-if (Config.allow_ACAO && Config.startup_logs) {
-    util.warn("Access-Control-Allow-Origin is enabled, which allows any server/client to access data from the WebServer.");
+if (Config.allow_ACAO) {
+    util.warn("Access-Control-Allow-Origin is enabled, which allows any server/client to access data from the web server.");
+}
+
+// Show a warning about default API key
+if (process.env.API_KEY === "ChangeAPIKeyNow!") {
+    util.warn("You are using the default API key, which lets anyone submit server-travel players to this server. Set a unique API_KEY in server/.env.");
 }
 
 // Create an HTTP server to handle both API and static file requests
@@ -119,7 +122,6 @@ server = http.createServer((req, res) => {
                 unlisted: server.unlisted,
                 private: server.private,
                 region: server.region,
-                serverhost: server.serverhost,
                 location: server.location,
                 gameMode: server.gameMode
             })));
@@ -180,6 +182,7 @@ server = http.createServer((req, res) => {
                 res.writeHead(200);
                 res.end(JSON.stringify(sserver.map((server) => ({
                     ip: server.ip,
+                    id: server.id,
                     players: server.players,
                     gameMode: server.gameMode
                 }))));
@@ -213,10 +216,10 @@ server = http.createServer((req, res) => {
             let fileToGet = path.join(publicRoot, pathname);
             let httpCode = 200;
 
-            // If the requested file doesn't exist or isn't a file, default to the main_menu file
+            // If the requested file doesn't exist or isn't a file, default to the index file
             if (!fileToGet.startsWith(publicRoot) || !fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {
                 httpCode = 404;
-                fileToGet = path.join(publicRoot, Config.main_menu);
+                fileToGet = path.join(publicRoot, Config.index);
             }
 
             // Determine the file's MIME type based on its extension and serve the file stream
@@ -234,7 +237,7 @@ server = http.createServer((req, res) => {
 });
 
 // Loads a game server
-function loadGameServer(loadViaMain = false, host, port, gamemode, region, serverHost, location, webProperties, properties, isFeatured, isUnlisted, isPrivate) {
+function loadGameServer(loadViaMain = false, host, port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate) {
     // Determine the new server index and initialize an empty object in the global servers array
     if (!loadViaMain) {
         let index = global.servers.length;
@@ -247,7 +250,6 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, serve
                 port: port, // Increment port for each server
                 gamemode,
                 region,
-                serverHost,
                 location,
                 webProperties,
                 properties,
@@ -284,8 +286,8 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, serve
                 process.exit(1);
             }
             global.launchedOnMainServer = true;
-            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, serverHost, location, webProperties, properties, isFeatured, isUnlisted, isPrivate, false);
-        }, 10)
+            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate, false);
+        }, 10);
     }
 }
 
@@ -296,10 +298,10 @@ global.onServerLoaded = () => {
     // Once all servers are loaded, log the status and routing table
     if (loadedServers >= global.servers.length) {
         util.saveToLog("Servers up", "All servers booted up.", 0x37F554);
-        if (Config.startup_logs) {
+        if (Config.verbose_logs) {
             util.log("Dumping endpoint -> gamemode/region routing table");
             for (const game of global.servers) {
-                console.log(`> ${Config.host}/#${game.id}`.padEnd(30, " ") + ` -> ${game.region.padEnd(10, " ")} (${game.serverhost.padEnd(8, " ")} - ${game.location.padEnd(10, " ")} - ${game.gameMode})`)
+                console.log(`> ${Config.host}/#${game.id} -> ${game.region} | ${game.location} - ${game.gameMode}`);
             }
             console.log("\n");
         }
@@ -319,7 +321,6 @@ server.listen(Config.port, () => {
             server.port,
             server.gamemode,
             server.region,
-            server.serverhost,
             server.location,
             { id: server.id, maxPlayers: server.player_cap },
             server.properties,
@@ -327,7 +328,7 @@ server.listen(Config.port, () => {
             server.unlisted,
             server.private
         );
-    })
+    });
 });
 
 // Upgrade HTTP connections to WebSocket connections if applicable
@@ -355,4 +356,4 @@ let bunLoop = setInterval(() => {
 }, 1000);
 
 // Log that the web server has been initialized if logging is enabled
-if (Config.startup_logs) console.log("Web Server initialized.");
+if (Config.verbose_logs) console.log("Web Server initialized.");

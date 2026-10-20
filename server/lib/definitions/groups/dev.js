@@ -15,7 +15,7 @@ Class.menu_special = makeMenu("Special Menu", {
     upgrades: [
         Config.spawn_class,
         //"menu_gameAdmin",
-        "eggGen",
+        "eggGenerator",
         "menu_specialTanks",
         "menu_bosses",
         "menu_nostalgia",
@@ -63,10 +63,8 @@ Class.menu_tankChanges = makeMenu("Tank Changes Menu", {
         "menu_betaTester",
         Config.spawn_class,
 
-        // Most recently available tanks in arras beta
-        "bender",
-        "repeater",
-        "spiral"
+        "coil",
+        "duplicator"
     ]
 });
 
@@ -146,7 +144,7 @@ Class.menu_dominators = makeMenu("Dominator Menu", {
         //"trapperDominator_AR",
         "antiTankMachineGun",
         "baseProtector",
-        "baseProtector_alt"
+        "baseProtector_diep"
     ]
 });
 Class.menu_sanctuaries = makeMenu("Sanctuary Tier Menu", {
@@ -446,7 +444,7 @@ Class.menu_digdig = makeMenu("DigDig", {
 // Shiny Member Menu
 Class.menu_shinyMember = makeMenu("Shiny Member Menu", {
     upgrades: [
-        "eggGen",
+        "eggGenerator",
         "menu_specialTanks",
         "menu_bosses",
         "menu_nostalgia",
@@ -534,6 +532,9 @@ Class.menu_addons = makeMenu("Addons Menu", {
     tooltip: "Content that is (usually) not part of Open Source Arras but was added by someone else.",
     boxColor: "rainbow",
     upgrades: [
+        "menu_youtuber",
+        "guillotine",
+        "banHammer",
         "menu_testing"
     ]
 });
