@@ -954,7 +954,7 @@ Class.rcs = {
         {
             POSITION: [18, 10, 1.3, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5, speed: 1, range: 0.1}]),
+                SHOOT_SETTINGS: combineStats([g.basic, {size: 1.3, reload: 0.1, spray: 2, damage: 0, range: 0.05}]),
                 TYPE: "bullet",
                 STAT_CALCULATOR: "bullet"
             }

@@ -1,5 +1,4 @@
 const { combineStats, weaponArray, weaponMirror } = require("../facilitators.js");
-const { base } = require("../constants.js");
 
 
 let suffix = "Generator";
@@ -20,7 +19,8 @@ const shapeGeneratorUpgrades = [
 Class.genBody = {
     PARENT: "spectator",
     BODY: {
-        SPEED: 25
+        SPEED: 25,
+        FOV: 1.5
     },
     SKILL_CAP: [15, 0, 0, 0, 0, 0, 0, 0, 0, 15],
     LAYER: 1e99,
@@ -124,7 +124,6 @@ Class[`gaybabyjail${suffix}`] = {
     COLOR: "lightGray",
     SIZE: 24,
     UPGRADES_TIER_0: [],
-    BODY: {FOV: base.FOV * 1.5},
     TURRETS: [ // bug, should be props
         ...weaponArray({
             POSITION: {SIZE: 6, X: -6, LAYER: 1, ANGLE: 60},

@@ -1368,6 +1368,19 @@ class io_oroboros extends IO {
         }
     }
 }
+class io_rcs extends IO {
+    constructor(body) {
+        super(body);
+        this.body = body;
+    }
+    think(input) {
+        if (this.isFiring) {
+            return {
+                fire: true
+            };
+        }
+    }
+}
 
 let ioTypes = {
     //misc
@@ -1382,6 +1395,7 @@ let ioTypes = {
     scaleWithMaster: io_scaleWithMaster,
     snakeTillNot: io_snakeTillNot,
     oroboros: io_oroboros,
+    rcs: io_rcs,
 
     //aiming related
     stackGuns: io_stackGuns,
