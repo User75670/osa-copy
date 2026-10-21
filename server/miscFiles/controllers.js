@@ -1368,18 +1368,12 @@ class io_oroboros extends IO {
         }
     }
 }
-class io_rcs extends IO {
-    constructor(body) {
+class io_rcs extends IO { // TODO: fix this
+    constructor(body) { 
         super(body);
         this.body = body;
     }
-    think(input) {
-        if (this.isFiring) {
-            return {
-                fire: true
-            };
-        }
-    }
+    think(input) {}
 }
 
 let ioTypes = {
