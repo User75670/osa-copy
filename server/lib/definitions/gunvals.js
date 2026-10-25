@@ -277,6 +277,11 @@ module.exports = {
         range: 0.8,
         spray: 2
     },
+    jalopy: {
+        reload: 1 / 3,
+        recoil: 0.5,
+        spray: 5 / 3
+    },
     minigun: {
         reload: 1.25,
         recoil: 0.6,

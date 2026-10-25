@@ -1237,7 +1237,7 @@ Class.jalopy = {
                 X: 6
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.diesel, { reload: 1 / 3, recoil: 0.5, spray: 5 / 3 }]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.diesel, g.jalopy]),
                 TYPE: "bullet"
             }
         }
