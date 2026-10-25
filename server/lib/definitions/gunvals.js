@@ -355,19 +355,6 @@ module.exports = {
         spray: 1.5,
         resist: 0.8
     },
-    flamethrower: {
-        reload: 1.75,
-        recoil: 4 / 3,
-        shudder: 2,
-        size: 0.25,
-        health: 10,
-        damage: 0.2,
-        pen: 4,
-        speed: 2,
-        maxSpeed: 0,
-        range: 3,
-        density: 0.25
-    },
     gatlingGun: {
         reload: 1.25,
         recoil: 4 / 3,

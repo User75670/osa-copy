@@ -1724,6 +1724,38 @@ Class.quadAngle = {
     }),
     UPGRADES_TIER_4: ["scrimmer", /*"aspirer", "fleeter", */"autoQuadAngle"/*, "glider", "conformer", "spoiler", "mandible", "waster"*/]
 };
+Class.queller = {
+    PARENT: "genericTank",
+    LABEL: "Queller",
+    DANGER: 7,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 5,
+                Y: -6,
+                ANGLE: -7,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary"
+            }
+        }, {delayIncrement: 0.5}),
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 14
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy"
+            }
+        }
+    ]
+};
 Class.railgun = {
     PARENT: "genericTank",
     LABEL: "Railgun",
@@ -1877,6 +1909,7 @@ Class.splitShot = {
 };
 Class.triHealer = makeFlank("healer", 3, "Tri-Healer", { extraStats: [g.flankGuard] });
 Class.triHealer.UPGRADES_TIER_4 = ["hexaHealer"];
+Class.triMachine = makeFlank("machineTrapper", 3, "Tri-Machine", { extraStats: [g.flankGuard] });
 Class.underdrive.UPGRADES_TIER_4 = ["necrodrive", "hexer", "autoUnderdrive", "infestordrive", "pentadrive"];
 Class.volley = {
     PARENT: "genericTank",
@@ -5553,12 +5586,12 @@ Class.machineGun.UPGRADES_TIER_2.push("diesel", "machineTrapper");
 Class.trapper.UPGRADES_TIER_2.push("pen", "mech", "machineTrapper", "wark");
 Class.twin.UPGRADES_TIER_2.push("wark");
 
-Class.artillery.UPGRADES_TIER_3.push(/*"queller", "forger", */"force", "autoArtillery"/*, "foctillery", "discharger"*/);
+Class.artillery.UPGRADES_TIER_3.push("queller"/*, "forger"*/, "force", "autoArtillery"/*, "foctillery", "discharger"*/);
 Class.assassin.UPGRADES_TIER_3.push("hitman", "sniper3", "enforcer", "courser");
 Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar", "autoAuto3", "combo");
 Class.builder.UPGRADES_TIER_3.push(/*"forger", "stall", */"fashioner"/*, "charger"*/);
 Class.cruiser.UPGRADES_TIER_3.push("productionist", "cruiserdrive", "hangar", "zipper", "baltimore", "mosey");
-Class.destroyer.UPGRADES_TIER_3.push("megaTrapper"/*, "queller"*/, "autoDestroyer"/*, "hurler", "slinker"*/);
+Class.destroyer.UPGRADES_TIER_3.push("megaTrapper", "queller", "autoDestroyer"/*, "hurler", "slinker"*/);
 removeUpgrades("director", 3, ["bigCheese"]);
 Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin", "doubleGunner", "warkwark");
 Class.gunner.UPGRADES_TIER_3.push("buttbuttin", "blower", "rimfire", "volley", "doubleGunner", "bentGunner", "equalizer", "corvette");
@@ -5649,6 +5682,15 @@ Class.triTrapper.UPGRADES_TIER_4 = [/*"triBarricade", "triMegaTrapper", "warkwar
 Class.tripleTwin.UPGRADES_TIER_4 = ["quadTwin", "autoTriple", "bentTriple", "hewnTriple", "tripleFlankTwin", "tripleGunner", "warkwarkwark"];
 Class.twin.UPGRADES_TIER_4 = ["duo"];
 Class.underseer.UPGRADES_TIER_4 = ["conductor"];
+
+const better_retrograde = require("../../groups/tanks/retrograde.js");
+if (better_retrograde && Config.retrograde) try {
+    require("../../entityAddons/armsRaceRetrograde/tanks.js");
+} catch(error) {
+    if (error.code !== "MODULE_NOT_FOUND") {
+        throw error;
+    }
+};
 
 module.exports = enable_missing_tanks;
 if (!enable_missing_tanks) {
