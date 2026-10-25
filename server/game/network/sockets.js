@@ -869,6 +869,10 @@ class socketManager {
             case "NWB": {
                 socket.status.forceNewBroadcast = true;
             } break;
+            case "G": {
+                // TODO: Actually make this do something
+                socket.talk("m", Config.popup_message_duration, "Score saving is WIP.");
+            } break;
             default: {
                 console.log(m);
                 console.log("Invalid registered packet." + m);

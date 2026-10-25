@@ -331,6 +331,9 @@ class Canvas {
                 case global.KEY_SCREENSHOT:
                     this.screenshot();
                     break;
+                case global.KEY_PAUSE:
+                    this.socket.talk("G");
+                    break;
             }
             if (global.canSkill) {
                 let skill = [
