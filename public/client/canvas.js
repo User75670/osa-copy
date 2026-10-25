@@ -823,23 +823,35 @@ class Canvas {
             this.screenshotCanvas.capture();
         }
         let cv = this.screenshotCanvas.getCanvas();
-        var x = cv.toDataURL(),
-            k = atob(x.split(",")[1]);
-        x = x.split(",")[0].split(":")[1].split(";")[0];
-        let p = new Uint8Array(k.length);
-        for (let a = 0; a < k.length; a++) p[a] = k.charCodeAt(a);
-        let q = URL.createObjectURL(new Blob([p], {type: x})),
-        w = document.createElement("a");
-        w.style.display = "none";
-        w.setAttribute("download", "osa-screenshot.png");
-        w.setAttribute("href", q);
-        document.body.appendChild(w);
-        setTimeout(() => {
-            URL.revokeObjectURL(q);
-            document.body.removeChild(w);
-        }, 100);
-        w.click();
-        global.createMessage("Saving screenshot...", 3_000);
+        let save = () => {
+            var x = cv.toDataURL(),
+                k = atob(x.split(",")[1]);
+            x = x.split(",")[0].split(":")[1].split(";")[0];
+            let p = new Uint8Array(k.length);
+            for (let a = 0; a < k.length; a++) p[a] = k.charCodeAt(a);
+            let q = URL.createObjectURL(new Blob([p], {type: x})),
+            w = document.createElement("a");
+            w.style.display = "none";
+            w.setAttribute("download", "osa-screenshot.png");
+            w.setAttribute("href", q);
+            document.body.appendChild(w);
+            setTimeout(() => {
+                URL.revokeObjectURL(q);
+                document.body.removeChild(w);
+            }, 100);
+            w.click();
+            global.createMessage("Saving screenshot...", 3_000);
+        };
+        if (localStorage.getItem("optCopyScreenshotsChecked") === "true" && navigator.clipboard && window.ClipboardItem) {
+            cv.toBlob((blob) => {
+                if (!blob) return save();
+                navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
+                    .then(() => global.createMessage("Screenshot copied to clipboard!", 3_000))
+                    .catch(() => save());
+            }, "image/png");
+            return;
+        }
+        save();
     }
 
     // Touchscreen Controls
