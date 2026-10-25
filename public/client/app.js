@@ -5708,32 +5708,35 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     },
                     { type: "checkbox",  id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 1, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
                     { type: "checkbox",  id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 2, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
-                    { type: "checkbox",  id: "optDeltaEntities",       label: "Delta Entities",        column: 0, row: 0, section: "perf", tooltip: "Support delta entity updates from the server.\nTakes effect on next connection." },
 
-                    { type: "checkbox",  id: "optFancy",               label: "Fading Animation",      column: 1, row: 1, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
+                    { type: "checkbox",  id: "optFancy",               label: "Fading Animation",      column: 1, row: 1, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\nMay slightly lower the frame rate." },
                     { type: "checkbox",  id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 2, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
 
                     // Performance
-                    { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
+                    { type: "checkbox",  id: "optDeltaEntities",       label: "Delta Entities",        column: 0, row: 0, section: "perf", tooltip: "Support delta entity updates from the server.\nTakes effect on next connection." },
+                    { type: "checkbox",  id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\nMay help to improve the frame rate." },
 
                     // Secrets
                     { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", tooltip: "Use a crosshair for the cursor." },
                     { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", tooltip: "Replace the colors of the teams with colors of the rainbow." },
                     { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", tooltip: "Attempt to render as many frames as possible, regardless of your monitor FPS.\nNote that this option is unlikely to actually improve game performance, and may cause crashes or significant lag on weaker devices." },
                     { type: "checkbox", id: "optCopyScreenshots",     label: "Copy Screenshots",        column: 1, row: 1, section: "secret", tooltip: "Copy screenshots to the clipboard instead of downloading them." },
-                    { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
-                    { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
-                    { type: "checkbox", id: "optBrainrotFilter",      label: '"Brainrot" Filter',       column: 0, row: 3, section: "secret", tooltip: 'Add the option to filter "brainrot" words.' },
+                    { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "[WIP] Always use a 16:9 aspect ratio to render the game." },
+                    { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "[WIP] Make yourself always centered on the minimap." },
+                    { type: "checkbox", id: "optBrainrotFilter",      label: '"Brainrot" Filter',       column: 0, row: 3, section: "secret", tooltip: "Add the option to filter \"brainrot\" words." },
                     { type: "checkbox", id: "optShowLocalhost",       label: "Show Localhost",          column: 0, row: 4, section: "secret", fullSecret: true, tooltip: "Display ws://127.0.0.1:5000 as one of the servers." },
-                    { type: "checkbox", id: "optDmcaMode",            label: "DMCA Mode",               column: 1, row: 3, section: "secret", fullSecret: true, placeholder: true, tooltip: "Not implemented yet." },
-                    { type: "checkbox", id: "optDebugBoxes",          label: "Debug Boxes",             column: 1, row: 4, section: "secret", fullSecret: true, placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optDmcaMode",            label: "DMCA Mode",               column: 1, row: 3, section: "secret", fullSecret: true, placeholder: true, tooltip: "[WIP] Censor the names and designs of all tanks which also appear in diep.io to comply with 3AM Experiences LLC's DMCA notices." },
+                    { type: "checkbox", id: "optDebugBoxes",          label: "Debug Boxes",             column: 1, row: 4, section: "secret", fullSecret: true, placeholder: true, tooltip: "[WIP] Show debug boxes.\nNote: This option only works when debug assertions are enabled." },
 
                     // Beta
-                    { type: "checkbox", id: "optSaveSkillUpgrades",   label: "Save Skill Upgrades",     column: 0, row: 0, section: "beta", placeholder: true, tooltip: "Not implemented yet." },
-                    { type: "checkbox", id: "optPlayerListPreview",   label: "Player List (Preview)",   column: 1, row: 0, section: "beta", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optSaveSkillUpgrades",   label: "Save Skill Upgrades",     column: 0, row: 0, section: "beta", placeholder: true, tooltip: "[WIP] Add the ability save and load up to 10 sets of skill upgrades" }, // [sic], misspelling exists in arras.io too
+                    { type: "checkbox", id: "optPlayerListPreview",   label: "Player List (Preview)",   column: 1, row: 0, section: "beta", placeholder: true, tooltip: "[WIP] Display a list of players you have recently interacted with\nNote: Players reports are not yet fully implemented." }, // [sic], same reason as above
 
                     // Legacy
-                    { type: "checkbox", id: "optLegacyThemes",        label: "Legacy Themes",           column: 0, row: 0, section: "legacy", placeholder: true, tooltip: "Not implemented yet." },
+                    {
+                        type: "checkbox", id: "optLegacyThemes",    label: "3D Mode",       column: 0, row: 0, section: "legacy", placeholder: true, tooltip: "[WIP] Make arras.io 3D.\nMay lower the frame rate.\nNote: This is a legacy option and will be removed in a future update." },
+                    {
+                        type: "checkbox", id: "optLegacyThemes",    label: "Legacy Themes", column: 1, row: 0, section: "legacy", placeholder: true, tooltip: "[WIP] Display legacy themes in the options menu.\nNote: This is a legacy option and will be removed in a future update. " },
                 ];
 
                 for (const cb of global.optionsCheckboxes) {

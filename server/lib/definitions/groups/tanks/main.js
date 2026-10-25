@@ -3695,3 +3695,112 @@ if (Config.siege) {
 
     Class.basic.UPGRADES_TIER_2.push("healer");
 };
+
+// Load other mode branches
+require("../tanks/special.js");
+require("../tanks/nostalgia.js");
+require("../tanks/scrapped.js");
+require("../tanks/retrograde.js");
+require("../tanks/armsRace.js");
+
+// DMCA Mode
+const dmca_censor_name = [
+    "annihilator",
+    "assassin",
+    "auto3",
+    "auto5",
+    "autoGunner",
+    "autoSmasher",
+    "autoTrapper",
+    "battleship",
+    "booster",
+    "destroyer",
+    "factory",
+    "fighter",
+    "flankGuard",
+    "gunner",
+    "gunnerTrapper",
+    "hunter",
+    "hybrid",
+    "landmine",
+    "machineGun",
+    "manager",
+    "necromancer",
+    "octoTank",
+    "overlord",
+    "overseer",
+    "overtrapper",
+    "pentaShot",
+    "predator",
+    "ranger",
+    "rocketeer",
+    "skimmer",
+    "smasher",
+    "sniper",
+    "spike",
+    "sprayer",
+    "spreadshot",
+    "stalker",
+    "streamliner",
+    "trapper",
+    "triAngle",
+    "triTrapper",
+    "tripleShot",
+    "tripleTwin",
+    "triplet",
+    "twin"
+];
+for (let type of dmca_censor_name) {
+    if (Class[type].LABEL) {
+        Class[type].LABEL += "/N"
+    }
+}
+const dmca_censor_design = [
+    "annihilator",
+    "auto3",
+    "auto5",
+    "autoGunner",
+    "autoTrapper",
+    "basic",
+    "battleship",
+    "booster",
+    "destroyer",
+    "director",
+    "doubleTwin",
+    "fighter",
+    "gunner",
+    "gunnerTrapper",
+    "hunter",
+    "hybrid",
+    "landmine",
+    "machineGun",
+    "manager",
+    "octoTank",
+    "overlord",
+    "overseer",
+    "overtrapper",
+    "pentaShot",
+    "predator",
+    "ranger",
+    "rocketeer",
+    "skimmer",
+    "smasher",
+    "sniper",
+    "spike",
+    "sprayer",
+    "spreadshot",
+    "stalker",
+    "streamliner",
+    "trapper",
+    "triAngle",
+    "triTrapper",
+    "tripleTwin",
+    "triplet",
+    "twin",
+    "underseer"
+];
+for (let type of dmca_censor_design) {
+    if (Class[type].LABEL) {
+        Class[type].LABEL += "/D"
+    }
+}
