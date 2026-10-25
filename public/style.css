@@ -49,6 +49,11 @@ canvas {
 	image-rendering: pixelated;
 }
 
+body.crosshair-cursor,
+body.crosshair-cursor canvas {
+	cursor: crosshair;
+}
+
 .header {
 	display: flex;
 	justify-content: center;

@@ -5252,6 +5252,11 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         }
     };
     global.refreshBrainrotOption();
+    global.applyCrosshairCursor = () => {
+        const enabled = localStorage.getItem("optCrosshairCursorChecked") === "true";
+        document.body.classList.toggle("crosshair-cursor", enabled);
+    };
+    global.applyCrosshairCursor();
 
     function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio) {
         if (global.themeOverlay) global.themeOverlay.style.display = "none";
@@ -5288,6 +5293,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 cb.lastValue = cb.value;
                 localStorage.setItem(cb.id + "Checked", cb.value ? "true" : "false");
                 if (cb.id === "optBrainrotFilter") global.refreshBrainrotOption();
+                if (cb.id === "optCrosshairCursor") global.applyCrosshairCursor();
             }
             const isOn = !cb.placeholder && !!cb.value;
             if (!cb.placeholder) {
@@ -5673,7 +5679,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
 
                     // Secrets
-                    { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", tooltip: "Use a crosshair for the cursor." },
                     { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optCopyScreenshots",     label: "Copy Screenshots",        column: 1, row: 1, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
