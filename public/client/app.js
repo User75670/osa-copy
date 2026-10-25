@@ -5260,7 +5260,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     };
     global.applyCrosshairCursor();
 
-    function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio) {
+    function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio, fullUnlocked) {
         if (global.themeOverlay) global.themeOverlay.style.display = "none";
         global.ingameThemeSlider = null;
         global.ingameThemeNeon = null;
@@ -5269,12 +5269,11 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const LINE_HEIGHT = 40;
         global.clickables.optionsMenu.toggleBoxes.hide();
         global.clickables.optionsMenu.HoverBoxes.hide();
-        for (const layout of Object.values(SECRET_SECTION_LAYOUT)) {
-            drawText(layout.title, panelX + PANEL_WIDTH / 2, PANEL_Y + layout.titleY, 16, color.guiwhite, "center");
-        }
         const secretTooltips = [];
-        const fullBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optFullSecretOptions");
-        const fullUnlocked = fullBox ? !!fullBox.value : localStorage.getItem("optFullSecretOptionsChecked") === "true";
+        const fullExtra = fullUnlocked ? 40 : 0;
+        for (const [section, layout] of Object.entries(SECRET_SECTION_LAYOUT)) {
+            drawText(layout.title, panelX + PANEL_WIDTH / 2, PANEL_Y + layout.titleY + (section === "secret" ? 0 : fullExtra), 16, color.guiwhite, "center");
+        }
         for (let i = 0; i < global.optionsCheckboxes.length; i++) {
             const cb = global.optionsCheckboxes[i];
             if (!isSecretSection(cb.section)) continue;
@@ -5284,7 +5283,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             }
             const layout = SECRET_SECTION_LAYOUT[cb.section];
             const x = cb.column === 0 ? panelX + 20 : panelX + PANEL_WIDTH / 2 + 7.5;
-            const y = PANEL_Y + layout.rowTop + cb.row * LINE_HEIGHT;
+            const y = PANEL_Y + layout.rowTop + (cb.section === "secret" ? 0 : fullExtra) + cb.row * LINE_HEIGHT;
             const hitSize = BOX_SIZE * clickableRatio;
             if (!cb.tooltipService) cb.tooltipService = {
                 text: cb.tooltip,
@@ -5462,21 +5461,24 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const PANEL_VISIBLE_X = mainMenuAnim;
         const PANEL_HIDDEN_X = PANEL_VISIBLE_X - PANEL_WIDTH - 20;
         const panelX = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X) - extraLeftX;
+        const fullBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optFullSecretOptions");
+        const fullUnlocked = fullBox ? !!fullBox.value : localStorage.getItem("optFullSecretOptionsChecked") === "true";
+        const secretPanelH = SECRET_PANEL_H + (fullUnlocked ? 40 : 0);
         const TAB_CONTENT_HEIGHTS = [
             (PANEL_Y + 685 + 1 * 40 + 45) - PANEL_Y,  // perf section: last row baseY + 1 row + padding
             THEME_PANEL_H,
             keybindsPanelHeight(),
-            SECRET_PANEL_H
+            secretPanelH
         ];
         const TAB_CONTENT_MAX_SCROLL = [
             0,
             THEME_PANEL_H,
             keybindsPanelHeight(),
-            SECRET_PANEL_H
+            secretPanelH
         ];
         global.optionsMenu_Anim.tabs[1][1] = THEME_PANEL_H;
         global.optionsMenu_Anim.tabs[2][1] = TAB_CONTENT_HEIGHTS[2];
-        global.optionsMenu_Anim.tabs[3][1] = SECRET_PANEL_H;
+        global.optionsMenu_Anim.tabs[3][1] = secretPanelH;
         const secretBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optSecretOptions");
         const secretUnlocked = secretBox ? !!secretBox.value : localStorage.getItem("optSecretOptionsChecked") === "true";
         global.clickables.optionsMenu.mainMenuIdle.set(panelX * clickableRatio, PANEL_Y * clickableRatio, PANEL_WIDTH * clickableRatio, PANEL_HEIGHT * clickableRatio);
@@ -5700,7 +5702,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optBrainrotFilter",      label: '"Brainrot" Filter',       column: 0, row: 3, section: "secret", tooltip: 'Add the option to filter "brainrot" words.' },
+                    { type: "checkbox", id: "optDmcaMode",            label: "DMCA Mode",               column: 0, row: 4, section: "secret", fullSecret: true, placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optShowLocalhost",       label: "Show Localhost",          column: 1, row: 3, section: "secret", fullSecret: true, tooltip: "Display ws://127.0.0.1:3001 as one of the servers." },
+                    { type: "checkbox", id: "optDebugBoxes",          label: "Debug Boxes",             column: 1, row: 4, section: "secret", fullSecret: true, placeholder: true, tooltip: "Not implemented yet." },
 
                     // Beta
                     { type: "checkbox", id: "optSaveSkillUpgrades",   label: "Save Skill Upgrades",     column: 0, row: 0, section: "beta", placeholder: true, tooltip: "Not implemented yet." },
@@ -6002,7 +6006,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].globalAlpha *= fadeSecret;
         ctx[2].translate(0, -scrollY);
         if (fadeSecret > 0.01 && activeTab === 3 && secretUnlocked) {
-            drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio);
+            drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio, fullUnlocked);
         }
         ctx[2].restore();
 
