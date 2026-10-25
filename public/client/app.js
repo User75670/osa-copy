@@ -5672,7 +5672,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     // Performance
                     { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
 
-                    // Secret
+                    // Secrets
                     { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
