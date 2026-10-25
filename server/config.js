@@ -64,7 +64,7 @@ module.exports = {
             properties: {
                 bot_cap: 20,
                 daily_tank: {
-                    tank: "whirlwind",
+                    tank: "desmos",
                     tier: 3,
                     ads: true,
                     ad_sources: [
