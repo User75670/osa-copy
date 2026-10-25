@@ -608,14 +608,14 @@ Class.corvette = {
                 X: 12,
                 Y: -4.5,
                 ANGLE: 45,
-                DELAY: 0.25
+                DELAY: 0.5
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
                 TYPE: "swarm",
                 STAT_CALCULATOR: "swarm"
             }
-        }, {delayIncrement: 0.5}),
+        }),
         ...weaponMirror([
             {
                 POSITION: {
@@ -3193,7 +3193,54 @@ Class.doctor = {
     ]
 };
 Class.doperstorm = makeStorm("doper");
-Class.doubleCorvette = makeFlank("corvette", 2, "Double Corvette", { extraStats: [g.doubleTwin] });
+Class.doubleCorvette = makeFlank({
+    PARENT: "genericTank",
+    LABEL: "Corvette",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 8.2,
+                ASPECT: 0.6,
+                X: 5,
+                ANGLE: 90,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        },
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 12,
+                    WIDTH: 3.5,
+                    Y: 7.25,
+                    DELAY: 0.5
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
+                    TYPE: "bullet"
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 16,
+                    WIDTH: 3.5,
+                    Y: 3.75
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
+                    TYPE: "bullet"
+                }
+            }
+        ], {delayIncrement: 0.25})
+    ],
+    UPGRADES_TIER_4: ["autoCorvette", "bracer", "doubleCorvette"]
+}, 2, "Double Corvette", { extraStats: [g.doubleTwin] });
 Class.doubleFlankGunner = {
     PARENT: "genericTank",
     LABEL: "Double Flank Gunner",
