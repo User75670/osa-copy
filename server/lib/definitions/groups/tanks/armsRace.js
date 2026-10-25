@@ -5624,8 +5624,6 @@ Class.wrench = {
 
 // Existing Upgrade Management
 if (!Config.arms_race) return;
-removeUpgrades("basic", 1, ["whirlwind"]);
-
 removeUpgrades("twin", 3, ["bulwark"]);
 
 Class.director.UPGRADES_TIER_2.push("directordrive", "honcho", "doper");
@@ -5741,6 +5739,8 @@ if (better_retrograde && Config.retrograde) try {
 
 module.exports = enable_missing_tanks;
 if (!enable_missing_tanks) {
+    removeUpgrades("basic", 1, ["whirlwind"]);
+
     //removeUpgrades("sniper", 2, ["marksman"]);
 
     removeUpgrades("assassin", 3, ["single"/*, "deadeye"*/]);
