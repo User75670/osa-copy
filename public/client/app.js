@@ -5681,7 +5681,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     // Secrets
                     { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", tooltip: "Use a crosshair for the cursor." },
                     { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
-                    { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", tooltip: "Attempt to render as many frames as possible, regardless of your monitor FPS.\nNote that this option is unlikely to actually improve game performance, and may cause crashes or significant lag on weaker devices." },
                     { type: "checkbox", id: "optCopyScreenshots",     label: "Copy Screenshots",        column: 1, row: 1, section: "secret", tooltip: "Copy screenshots to the clipboard instead of downloading them." },
                     { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
@@ -6092,12 +6092,18 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     (!/Chrome\/8[4-6]\.0\.41([4-7][0-9]|8[0-3])\./.test(navigator.userAgent) &&
       window.requestAnimationFrame) ||
     ((a) => setTimeout(() => a(Date.now()), 1e3 / 60));
+    function isUncappedFrameRateEnabled() {
+        const cb = global.optionsCheckboxes?.find(cb => cb.id === "optUncappedFrameRate");
+        if (cb) return !!cb.value;
+        return localStorage.getItem("optUncappedFrameRateChecked") === "true";
+    }
     function animloop(tick) {
         if (document.getElementById("gameAreaWrapper").style.display === "none") {
-            setTimeout(() => animloop(Date.now()), 200); // Slow down when tab is hidden
+            setTimeout(() => animloop(performance.now()), 200); // Slow down when tab is hidden
             return;
         }
-        animationFrame(animloop);
+        if (isUncappedFrameRateEnabled()) setTimeout(() => animloop(performance.now()), 0);
+        else animationFrame(animloop);
         if (global.gameStart) {
             // Update fov
             let fovtickMotion = fovlasttick ? tick - fovlasttick : null;
