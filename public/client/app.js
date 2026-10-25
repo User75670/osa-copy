@@ -100,6 +100,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         global.loadServerSelector(false, "Connecting..."); // The code is at ./serverSelectorHandler.js
 
         fetch("/getServers.json").then(response => response.json()).then(json => {
+            if (localStorage.getItem("optShowLocalhostChecked") === "true") json.unshift({ id: "localhost", ip: "127.0.0.1:3001", players: 0, maxPlayers: 0, featured: false, unlisted: false, private: false, region: "Local", location: "Localhost", gameMode: "FFA" });
             global.servers = json;
             global.loadServerSelector(json); // The code is at ./serverSelectorHandler.js
         }).catch(error => {
@@ -5272,9 +5273,15 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             drawText(layout.title, panelX + PANEL_WIDTH / 2, PANEL_Y + layout.titleY, 16, color.guiwhite, "center");
         }
         const secretTooltips = [];
+        const fullBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optFullSecretOptions");
+        const fullUnlocked = fullBox ? !!fullBox.value : localStorage.getItem("optFullSecretOptionsChecked") === "true";
         for (let i = 0; i < global.optionsCheckboxes.length; i++) {
             const cb = global.optionsCheckboxes[i];
             if (!isSecretSection(cb.section)) continue;
+            if (cb.fullSecret && !fullUnlocked) {
+                if (cb.tooltipService) cb.tooltipService.targetAlpha = 0;
+                continue;
+            }
             const layout = SECRET_SECTION_LAYOUT[cb.section];
             const x = cb.column === 0 ? panelX + 20 : panelX + PANEL_WIDTH / 2 + 7.5;
             const y = PANEL_Y + layout.rowTop + cb.row * LINE_HEIGHT;
@@ -5296,6 +5303,11 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 if (cb.id === "optBrainrotFilter") global.refreshBrainrotOption();
                 if (cb.id === "optCrosshairCursor") global.applyCrosshairCursor();
                 if (cb.id === "optRainbowTeamColors") config.game.rainbowTeamColors = !!cb.value;
+                if (cb.id === "optShowLocalhost") {
+                    if (cb.value) global.servers.unshift({ id: "localhost", ip: "127.0.0.1:3001", players: 0, maxPlayers: 0, featured: false, unlisted: false, private: false, region: "Local", location: "Localhost", gameMode: "FFA" });
+                    else global.servers = global.servers.filter(s => s.id !== "localhost");
+                    global.loadServerSelector(global.servers);
+                }
             }
             const isOn = !cb.placeholder && !!cb.value;
             if (!cb.placeholder) {
@@ -5688,6 +5700,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
                     { type: "checkbox", id: "optBrainrotFilter",      label: '"Brainrot" Filter',       column: 0, row: 3, section: "secret", tooltip: 'Add the option to filter "brainrot" words.' },
+                    { type: "checkbox", id: "optShowLocalhost",       label: "Show Localhost",          column: 1, row: 3, section: "secret", fullSecret: true, tooltip: "Display ws://127.0.0.1:3001 as one of the servers." },
 
                     // Beta
                     { type: "checkbox", id: "optSaveSkillUpgrades",   label: "Save Skill Upgrades",     column: 0, row: 0, section: "beta", placeholder: true, tooltip: "Not implemented yet." },

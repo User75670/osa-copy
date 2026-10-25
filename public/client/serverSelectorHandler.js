@@ -18,6 +18,8 @@ global.loadServerSelector = (serverData, text) => {
     }
     document.getElementById("startButton").disabled = false;
     servers = serverData;
+    serverMap = {};
+    availableServers = [];
     let id = location.hash.slice(1);
     if (!servers.some(server => server.id === id)) id = localStorage.getItem("lastServer");
     if (!servers.some(server => server.id === id)) id = servers[0].id;
