@@ -150,6 +150,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // Game
         util.retrieveFromLocalStorage("optIncognitoMode");
         util.retrieveFromLocalStorage("optDeltaEntities");
+        config.game.rainbowTeamColors = localStorage.getItem("optRainbowTeamColorsChecked") === "true";
         // Default to true
         if (localStorage.getItem("optDeltaEntitiesChecked") === null) {
             document.getElementById("optDeltaEntities").checked = true;
@@ -5294,6 +5295,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 localStorage.setItem(cb.id + "Checked", cb.value ? "true" : "false");
                 if (cb.id === "optBrainrotFilter") global.refreshBrainrotOption();
                 if (cb.id === "optCrosshairCursor") global.applyCrosshairCursor();
+                if (cb.id === "optRainbowTeamColors") config.game.rainbowTeamColors = !!cb.value;
             }
             const isOn = !cb.placeholder && !!cb.value;
             if (!cb.placeholder) {
@@ -5680,7 +5682,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
                     // Secrets
                     { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", tooltip: "Use a crosshair for the cursor." },
-                    { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", tooltip: "Replace the colors of the teams with colors of the rainbow." },
                     { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", tooltip: "Attempt to render as many frames as possible, regardless of your monitor FPS.\nNote that this option is unlikely to actually improve game performance, and may cause crashes or significant lag on weaker devices." },
                     { type: "checkbox", id: "optCopyScreenshots",     label: "Copy Screenshots",        column: 1, row: 1, section: "secret", tooltip: "Copy screenshots to the clipboard instead of downloading them." },
                     { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },

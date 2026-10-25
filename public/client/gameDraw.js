@@ -105,6 +105,7 @@ var gameDraw = {
     },
 
     colorCache: {},
+    teamColors: [10, 11, 12, 15, 25, 26, 27, 28, 4, "blue", "green", "red", "magenta", "mustard", "tangerine", "brown", "cyan", "aqua"],
     modifyColor: (color, base = "16 0 1 0 false") => {
         // Split into array
         let colorDetails = color.split(" "),
@@ -120,6 +121,7 @@ var gameDraw = {
 
         // Exit if calculated already
         let colorId = colorDetails.join(" ");
+        if (config.game.rainbowTeamColors && gameDraw.teamColors.includes(util.isNumeric(colorDetails[0]) ? parseInt(colorDetails[0]) : colorDetails[0])) return gameDraw.animatedColor.gay;
         let cachedColor = gameDraw.colorCache[colorId];
         if (cachedColor != undefined) return cachedColor;
 
@@ -258,6 +260,7 @@ var gameDraw = {
         if (colorNumber == undefined || colorNumber == null) return gameDraw.color.black;
         if (colorNumber[0] == "#") return colorNumber;
         if (util.isNumeric(colorNumber)) colorNumber = parseInt(colorNumber);
+        if (config.game.rainbowTeamColors && gameDraw.teamColors.includes(colorNumber)) return gameDraw.animatedColor.gay;
         // Gradient color
         if (colorNumber.gradient && ctx) {
             try {

@@ -53,6 +53,7 @@ const config = {
         centeredMinimap: false,
         incognitoMode: false,
         deltaEntities: true,
+        rainbowTeamColors: false,
     }
 };
 export { config }
