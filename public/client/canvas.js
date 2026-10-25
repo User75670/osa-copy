@@ -605,6 +605,13 @@ class Canvas {
                     global.optionsMenu_Anim.tabOffset.set(optionsMenu_tabClick);
                     global.optionsMenu_Anim.mainMenuHeight.set(global.optionsMenu_Anim.tabs[optionsMenu_tabClick][1]);
                     if (optionsMenu_tabClick !== 2) global.ingameKeybindRects = null;
+                    if (global.optionsMenu_Anim.currentOptionMenu) {
+                        global.optionsMenu_Anim.currentOptionMenu.optionService.opened = false;
+                        global.optionsMenu_Anim.currentOptionMenu = false;
+                    }
+                    global.clickables.optionsMenu.toggleBoxes.hide();
+                    global.clickables.optionsMenu.HoverBoxes.hide();
+                    global.clickables.optionsMenu.optionBoxes.hide();
                     if (global.optionsMenu_Anim.scrollTargets) global.optionsMenu_Anim.scrollTargets[optionsMenu_tabClick] = 0;
                     break;
                 }
