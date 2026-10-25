@@ -15,6 +15,34 @@ module.exports = {
     gun: {},
     prop: {},
     turret: {
+        assemblerHat: [
+            {
+                TYPE: ["squareHatCurved", { COLOR: "darkGrey" }],
+                POSITION: {
+                    SIZE: 2,
+                    X: 14,
+                    LAYER: 1
+                }
+            }
+        ],
+        doubleAssemblerHat: [
+            {
+                TYPE: ["squareHatCurved", { COLOR: "darkGrey" }],
+                POSITION: {
+                    SIZE: 4,
+                    X: 14,
+                    LAYER: 1
+                }
+            },
+            {
+                TYPE: ["squareHatCurved", { COLOR: "darkGrey" }],
+                POSITION: {
+                    SIZE: 2,
+                    X: 14,
+                    LAYER: 1
+                }
+            }
+        ],
         driveHat: [
             {
                 TYPE: ["squareHat", {COLOR: "grey"}],

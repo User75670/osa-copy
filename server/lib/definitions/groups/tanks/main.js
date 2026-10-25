@@ -868,6 +868,7 @@ Class.assembler = {
     DANGER: 7,
     STAT_NAMES: statnames.trap,
     BODY: Class.builder.BODY,
+    TURRETS: preset.turret.assemblerHat,
     GUNS: [
         {
             POSITION: {
@@ -888,16 +889,6 @@ Class.assembler = {
                 NO_LIMITATIONS: true,
                 MAX_CHILDREN: 8,
                 STAT_CALCULATOR: "block"
-            }
-        }
-    ],
-    TURRETS: [
-        {
-            TYPE: ["squareHatCurved", { COLOR: "darkGrey" }],
-            POSITION: {
-                SIZE: 2,
-                X: 14,
-                LAYER: 1
             }
         }
     ]
