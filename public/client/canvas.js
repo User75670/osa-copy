@@ -610,6 +610,7 @@ class Canvas {
                 }
                 if (optionsMenu_toggleBox !== -1) {
                     let box = global.optionsCheckboxes[optionsMenu_toggleBox];
+                    if (box.placeholder) break;
                     if (box.type === "checkbox") {
                         let doc = document.getElementById(box.id);
                         box.value = !box.value;

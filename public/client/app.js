@@ -4742,6 +4742,13 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     const OV_SLIDER_W = 152, OV_TITLE_TOP = 31;
     const THEME_PANEL_H = 608;
     const KB_ROW_TOP = 47, KB_ROW_PITCH = 39;
+    const SECRET_PANEL_H = 350;
+    const SECRET_SECTION_LAYOUT = {
+        secret: { title: "Secret Options", titleY: 30, rowTop: 45 },
+        beta:   { title: "Beta Options",   titleY: 220, rowTop: 235 },
+        legacy: { title: "Legacy Options", titleY: 290, rowTop: 305 },
+    };
+    const isSecretSection = (section) => section === "secret" || section === "beta" || section === "legacy";
 
     let _themeList = null;
     function loadThemes() {
@@ -5251,14 +5258,20 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         global.ingameThemeSlider = null;
         global.ingameThemeNeon = null;
         global.ingameKeybindRects = null;
-        drawText("Secret Options", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
         const BOX_SIZE = 25;
         const LINE_HEIGHT = 40;
+        global.clickables.optionsMenu.toggleBoxes.hide();
+        global.clickables.optionsMenu.HoverBoxes.hide();
+        for (const layout of Object.values(SECRET_SECTION_LAYOUT)) {
+            drawText(layout.title, panelX + PANEL_WIDTH / 2, PANEL_Y + layout.titleY, 16, color.guiwhite, "center");
+        }
+        const secretTooltips = [];
         for (let i = 0; i < global.optionsCheckboxes.length; i++) {
             const cb = global.optionsCheckboxes[i];
-            if (cb.section !== "secret") continue;
+            if (!isSecretSection(cb.section)) continue;
+            const layout = SECRET_SECTION_LAYOUT[cb.section];
             const x = cb.column === 0 ? panelX + 20 : panelX + PANEL_WIDTH / 2 + 7.5;
-            const y = PANEL_Y + 45 + cb.row * LINE_HEIGHT;
+            const y = PANEL_Y + layout.rowTop + cb.row * LINE_HEIGHT;
             const hitSize = BOX_SIZE * clickableRatio;
             if (!cb.tooltipService) cb.tooltipService = {
                 text: cb.tooltip,
@@ -5269,15 +5282,17 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             };
             cb.tooltipService.x = x * clickableRatio;
             cb.tooltipService.y = (y + BOX_SIZE + 10) * clickableRatio;
+            global.clickables.optionsMenu.HoverBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
             cb.tooltipService.targetAlpha = global.clickables.optionsMenu.HoverBoxes.check({ x: global.mouse.x, y: global.mouse.y }) === i ? 1 : 0;
-            if (cb.lastValue !== cb.value) {
+            if (!cb.placeholder && cb.lastValue !== cb.value) {
                 cb.lastValue = cb.value;
                 localStorage.setItem(cb.id + "Checked", cb.value ? "true" : "false");
                 if (cb.id === "optBrainrotFilter") global.refreshBrainrotOption();
             }
-            const isOn = !!cb.value;
-            global.clickables.optionsMenu.toggleBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize, hitSize);
-            global.clickables.optionsMenu.HoverBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+            const isOn = !cb.placeholder && !!cb.value;
+            if (!cb.placeholder) {
+                global.clickables.optionsMenu.toggleBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize, hitSize);
+            }
             ctx[2].lineWidth = 3;
             gameDraw.setColor(ctx[2], isOn ? color.green : color.guiwhite);
             drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
@@ -5293,8 +5308,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 ctx[2].stroke();
             }
             drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left", false, 1, 5.5);
-            drawToolip(cb);
+            secretTooltips.push(cb);
         }
+        for (const cb of secretTooltips) drawToolip(cb);
     }
 
     function drawOptionsMenu() {
@@ -5430,23 +5446,24 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             (PANEL_Y + 685 + 1 * 40 + 45) - PANEL_Y,  // perf section: last row baseY + 1 row + padding
             THEME_PANEL_H,
             keybindsPanelHeight(),
-            300
+            SECRET_PANEL_H
         ];
         const TAB_CONTENT_MAX_SCROLL = [
             0,
             THEME_PANEL_H,
             keybindsPanelHeight(),
-            300
+            SECRET_PANEL_H
         ];
         global.optionsMenu_Anim.tabs[1][1] = THEME_PANEL_H;
         global.optionsMenu_Anim.tabs[2][1] = TAB_CONTENT_HEIGHTS[2];
-        global.optionsMenu_Anim.tabs[3][1] = 300;
+        global.optionsMenu_Anim.tabs[3][1] = SECRET_PANEL_H;
         const secretBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optSecretOptions");
         const secretUnlocked = secretBox ? !!secretBox.value : localStorage.getItem("optSecretOptionsChecked") === "true";
         global.clickables.optionsMenu.mainMenuIdle.set(panelX * clickableRatio, PANEL_Y * clickableRatio, PANEL_WIDTH * clickableRatio, PANEL_HEIGHT * clickableRatio);
         if (!secretUnlocked && (global.optionsMenu_Anim.activeTab || 0) === 3) {
             global.optionsMenu_Anim.activeTab = 0;
             global.optionsMenu_Anim.tabOffset.set(0);
+            global.optionsMenu_Anim.mainMenuHeight.set(global.optionsMenu_Anim.tabs[0][1]);
         }
         const activeTab = global.optionsMenu_Anim.activeTab || 0;
         const scrollOffsetAnim = global.optionsMenu_Anim.scrollOffsets[activeTab];
@@ -5656,7 +5673,20 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
 
                     // Secret
-                    { type: "checkbox", id: "optBrainrotFilter", label: '"Brainrot" Filter', column: 0, row: 0, section: "secret", tooltip: 'Add the option to filter "brainrot" words.' },
+                    { type: "checkbox", id: "optCrosshairCursor",     label: "Crosshair Cursor",        column: 0, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optCopyScreenshots",     label: "Copy Screenshots",        column: 1, row: 1, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optBrainrotFilter",      label: '"Brainrot" Filter',       column: 0, row: 3, section: "secret", tooltip: 'Add the option to filter "brainrot" words.' },
+
+                    // Beta
+                    { type: "checkbox", id: "optSaveSkillUpgrades",   label: "Save Skill Upgrades",     column: 0, row: 0, section: "beta", placeholder: true, tooltip: "Not implemented yet." },
+                    { type: "checkbox", id: "optPlayerListPreview",   label: "Player List (Preview)",   column: 1, row: 0, section: "beta", placeholder: true, tooltip: "Not implemented yet." },
+
+                    // Legacy
+                    { type: "checkbox", id: "optLegacyThemes",        label: "Legacy Themes",           column: 0, row: 0, section: "legacy", placeholder: true, tooltip: "Not implemented yet." },
                 ];
 
                 for (const cb of global.optionsCheckboxes) {
@@ -5673,7 +5703,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
             for (let i = 0; i < global.optionsCheckboxes.length; i++) {
                 const cb = global.optionsCheckboxes[i];
-                if (cb.section === "secret") continue;
+                if (isSecretSection(cb.section)) continue;
                 let baseY = PANEL_Y + 45;
                 if (cb.section === "ui")    baseY = PANEL_Y + 400;
                 if (cb.section === "extra") baseY = PANEL_Y + 590;
@@ -5842,7 +5872,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].restore();
 
         for (const cb of global.optionsCheckboxes) {
-            if (cb.section === "secret") continue;
+            if (isSecretSection(cb.section)) continue;
             if (cb.type === "option" && cb.optionService) {
                 let above = cb.location === "top";
                 let height = 0;
