@@ -10,6 +10,12 @@ const free_tier_4 = true;
 // This will also enable the Better Arms Race addon if it is present.
 const enable_missing_tanks = false;
 
+// Placeholder Marker
+const placeholder = {
+    UPGRADE_COLOR: "black",
+    UPGRADE_TOOLTIP: "PLACEHOLDER MOCKUP"
+};
+
 // Tier 2 (Level 30)
 Class.diesel = {
     PARENT: "genericTank",
@@ -5538,6 +5544,7 @@ Class.wrench = {
 
 // Existing Upgrade Management
 if (!Config.arms_race) return;
+removeUpgrades("basic", 1, ["whirlwind"]);
 
 removeUpgrades("twin", 3, ["bulwark"]);
 
