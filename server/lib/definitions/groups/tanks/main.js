@@ -3728,6 +3728,7 @@ const dmca_censor_name = [
     "landmine",
     "machineGun",
     "manager",
+    "megaTrapper",
     "necromancer",
     "octoTank",
     "overlord",
@@ -3757,7 +3758,7 @@ for (let type of dmca_censor_name) {
     if (Class[type].LABEL) {
         Class[type].LABEL += "/N"
     }
-}
+};
 const dmca_censor_design = [
     "annihilator",
     "auto3",
@@ -3778,6 +3779,7 @@ const dmca_censor_design = [
     "landmine",
     "machineGun",
     "manager",
+    "megaTrapper",
     "octoTank",
     "overlord",
     "overseer",
@@ -3806,4 +3808,4 @@ for (let type of dmca_censor_design) {
     if (Class[type].LABEL) {
         Class[type].LABEL += "/D"
     }
-}
+};
