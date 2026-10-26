@@ -114,7 +114,7 @@ h3 {
 }
 
 .horizontalSelector {
-	padding: 4px 0;
+	padding: 3.5px 0;
 	margin-bottom: 4px;
 	font: bold 12px Ubuntu;
 	text-align: center;
@@ -142,7 +142,7 @@ h3 {
 }
 
 .serverSelector {
-	height: 154px; /*Should be 104px*/
+	height: 104px;
 	text-align: center;
 	font-size: 13px;
 	font-weight: bold;

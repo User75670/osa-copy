@@ -190,7 +190,7 @@ let initializeFilter = () => {
         let r = l.length;
         l.push(data[0].filter);
         let e = document.getElementsByClassName("serverSelector");
-        global.mobile ? global.fixedServerSelectorHeight = "62px" : global.fixedServerSelectorHeight = "100px"
+        global.mobile ? global.fixedServerSelectorHeight = "62px" : global.fixedServerSelectorHeight = "104px"
         if (!global.uncappedMenu) e[0].style.height = global.fixedServerSelectorHeight;
         let v = null;
         let spans = [];
@@ -230,7 +230,7 @@ let initializeFilter = () => {
         })
         return check;
     }
-    createFilter(svFilterRegionDoc, [
+    /*createFilter(svFilterRegionDoc, [
         { name: "All", filter: (h) => { return checkFilter(h, global.filters.regions.all) } },
         { name: "USA", filter: (h) => { return checkFilter(h, global.filters.regions.usa) } },
         { name: "Europe", filter: (h) => { return checkFilter(h, global.filters.regions.europe) } },
@@ -247,6 +247,6 @@ let initializeFilter = () => {
         //{ name: "Arms Race", filter: (h) => { return checkFilter(h, global.filters.gamemodes.armsRace) } },
         //{ name: "Other", filter: (h) => { return checkFilter(h, global.filters.gamemodes.other) } },
         { name: "Sandbox", filter: (h) => { return checkFilter(h, global.filters.gamemodes.sandbox) } }
-    ], "serverFilterMode");
+    ], "serverFilterMode");*/
     return restoreFilters;
 }
