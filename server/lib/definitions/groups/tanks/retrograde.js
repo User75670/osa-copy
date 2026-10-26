@@ -612,6 +612,8 @@ if (better_retrograde) {
             Class.flamethrower_RG.LABEL = "Wildfire";
 
             require("./armsRace.js");
+        } else {
+            Class.pounder.UPGRADES_TIER_3.push("subverter", "deathStar");
         };
     };
 };
