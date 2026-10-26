@@ -1,4 +1,4 @@
-const { combineStats, removeUpgrades, makeAuto, makeFlank, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror } = require("../../facilitators.js");
+const { combineStats, removeUpgrades, makeAuto, makeFlank, makeGuard, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror } = require("../../facilitators.js");
 const { base, smshskl, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 
@@ -114,11 +114,10 @@ Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind";
 Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"];
 
 // Tier 3 (Level 45)
-Class.auto4_old = makeRadialAuto("auto4gun", { isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3 });
-Class.bentBoomer_old = {
+Class.oldArmsman = makeGuard("rifle", "Old Armsman");
+Class.oldBentBoomer = {
     PARENT: "genericTank",
-    LABEL: "Boomer",
-    UPGRADE_LABEL: "Old Bent Boomer",
+    LABEL: "Bent Boomer",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
     BODY: {
@@ -203,10 +202,9 @@ Class.blunderbuss = {
         }
     ]
 };
-Class.commander_old = {
+Class.oldCommander = {
     PARENT: "genericTank",
-    LABEL: "Commander",
-    UPGRADE_LABEL: "Old Commander",
+    LABEL: "Old Commander",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
     BODY: {
@@ -249,10 +247,9 @@ Class.commander_old = {
         })
     ]
 };
-Class.deathStar_old = {
+Class.oldDeathStar = {
     PARENT: "genericTank",
-    LABEL: "Death Star",
-    UPGRADE_LABEL: "Old Death Star",
+    LABEL: "Old Death Star",
     DANGER: 7,
     GUNS: weaponArray([
         {
@@ -279,6 +276,7 @@ Class.deathStar_old = {
         }
     ], 3)
 };
+Class.gunner3 = makeRadialAuto("auto4gun", { isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3 });
 Class.maelstrom = makeAuto("whirlwind_old", "Maelstrom");
 Class.master = {
     PARENT: "genericTank",
@@ -344,7 +342,7 @@ Class.monsoon = makeWhirlwind({
 }, {hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Monsoon", danger: 7});
 Class.quadBuilder = {
     PARENT: "genericTank",
-    LABEL: "Quad Builder",
+    LABEL: "Quad-Builder",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
     BODY: {
@@ -374,10 +372,9 @@ Class.quadBuilder = {
         }
     ], 4)
 };
-Class.rimfire_old = {
+Class.oldRimfire = {
     PARENT: "genericTank",
-    LABEL: "Rimfire",
-    UPGRADE_LABEL: "Old Rimfire",
+    LABEL: "Old Rimfire",
     DANGER: 7,
     GUNS: weaponMirror([
         {
@@ -406,12 +403,10 @@ Class.rimfire_old = {
         }
     ], {delayIncrement: 0.25})
 };
-Class.septaTrapper_old = makeFlank("trapper", 7, "Septa Trapper", { extraStats: [g.hexaTrapper], delayIncrement: 4 / 7, danger: 7, noRecoil: true });
-Class.septaTrapper_old.UPGRADE_LABEL = "Old Septa Trapper";
-Class.spike_old = {
+Class.oldSeptaTrapper = makeFlank("trapper", 7, "Old Septa Trapper", { extraStats: [g.hexaTrapper], delayIncrement: 4 / 7, danger: 7, noRecoil: true });
+Class.weirdSpike = {
     PARENT: "genericSmasher",
-    LABEL: "Spike",
-    UPGRADE_LABEL: "Weird Spike",
+    LABEL: "Weird Spike",
     DANGER: 7,
     BODY: {
         DAMAGE: 1.15 * base.DAMAGE,
@@ -446,10 +441,9 @@ Class.spike_old = {
         }
     ]
 };
-Class.spreadshot_old = {
+Class.oldSpreadshot = {
     PARENT: "genericTank",
-    LABEL: "Spreadshot",
-    UPGRADE_LABEL: "Old Spreadshot",
+    LABEL: "Old Spreadshot",
     DANGER: 7,
     GUNS: [
         ...weaponMirror([{

@@ -324,18 +324,18 @@ Class.menu_retiredDevBosses = makeMenu("Retired Dev Bosses Menu", {
 // Nostalgia/Scrapped Menus
 Class.menu_nostalgia = makeMenu("Nostalgia Menu", {
     upgrades: [
-        "spreadshot_old",
-        "bentBoomer_old",
+        "oldSpreadshot",
+        "oldBentBoomer",
         "quadBuilder",
         "quintuplet",
         "vulcan",
         "sniper3",
-        "spike_old",
+        "weirdSpike",
         "master",
-        "commander_old",
+        "oldCommander",
         "blunderbuss",
-        "rimfire_old",
-        "ransacker"
+        "oldRimfire",
+        "oldArmsman"
     ]
 });
 Class.menu_scrapped = makeMenu("Scrapped Menu", {
@@ -348,7 +348,7 @@ Class.menu_scrapped = makeMenu("Scrapped Menu", {
         "megaTrapper",
         "railgun",
         "megaSpawner",
-        "dreadnought_old"
+        "badDreadnought"
     ]
 });
 Class.menu_scrapped2 = makeMenu("Scrapped Menu 2", {
@@ -361,7 +361,7 @@ Class.menu_scrapped2 = makeMenu("Scrapped Menu 2", {
         "spawnerdrive",
         "rimfire",
         "productionist",
-        "vulture" //"taser"
+        "vulture"
     ]
 });
 
