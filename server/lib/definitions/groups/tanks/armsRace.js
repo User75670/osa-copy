@@ -2858,6 +2858,37 @@ Class.conductor = {
         }
     }, 2)
 };
+Class.conjurer = {
+    PARENT: "genericTank",
+    LABEL: "Conjurer",
+    DANGER: 8,
+    NECRO: [4],
+    SIZE: 11.5,
+    STAT_NAMES: statnames.necro,
+    SHAPE: 6,
+    MAX_CHILDREN: 15,
+    BODY: Class.underseer.BODY,
+    ...placeholder,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 8.2,
+                ASPECT: 0.6,
+                X: 4.4,
+                ANGLE: 60
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 8,
+                ASPECT: 1.5,
+                X: 7.4
+            }
+        }
+    ], 3)
+};
 Class.consolidation = {
     PARENT: "genericTank",
     LABEL: "Consolidation",
@@ -5647,7 +5678,7 @@ Class.hunter.UPGRADES_TIER_3.push("autoHunter"/*, "megaHunter"*/, "prober", "cou
 Class.launcher.UPGRADES_TIER_3.push("rocketeer"/*, "pitcher", "cluster", "projector"*/, "heaver", "autoLauncher"/*, "hurler", "inception"*/);
 Class.minigun.UPGRADES_TIER_3.push(/*"taser", "zipper", */"bentMinigun", "autoMinigun"/*, "widget"*/);
 Class.overseer.UPGRADES_TIER_3.push("captain", "foreman", "dopeseer");
-Class.pounder.UPGRADES_TIER_3.push("subverter");
+Class.pounder.UPGRADES_TIER_3.push("subverter", "deathStar");
 Class.rifle.UPGRADES_TIER_3.push("autoRifle", "enforcer", "prober");
 Class.smasher.UPGRADES_TIER_3.push(/*"banger", "drifter"*/);
 Class.sniper.UPGRADES_TIER_3.push("railgun");
@@ -5726,7 +5757,7 @@ Class.triAngle.UPGRADES_TIER_4 = ["avian"/*, "raven"*/, "phoenix"/*, "shoebill"*
 Class.triTrapper.UPGRADES_TIER_4 = [/*"triBarricade", "triMegaTrapper", "warkwarkwark"*/];
 Class.tripleTwin.UPGRADES_TIER_4 = ["quadTwin", "autoTriple", "bentTriple", "hewnTriple", "tripleFlankTwin", "tripleGunner", "warkwarkwark"];
 Class.twin.UPGRADES_TIER_4 = ["duo"];
-Class.underseer.UPGRADES_TIER_4 = ["conductor"];
+Class.underseer.UPGRADES_TIER_4 = ["conductor", "conjurer"];
 
 const better_retrograde = require("../../groups/tanks/retrograde.js");
 if (better_retrograde && Config.retrograde) try {
