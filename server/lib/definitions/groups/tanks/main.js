@@ -163,6 +163,7 @@ Class.twin = {
 };
 Class.whirlwind = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.2
     }
@@ -371,7 +372,6 @@ Class.helix = {
     PARENT: "genericTank",
     LABEL: "Helix",
     DANGER: 6,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -455,6 +455,7 @@ Class.hunter = {
 };
 Class.hurricane = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.2
     }
@@ -676,6 +677,7 @@ Class.sprayer = {
 };
 Class.tornado = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.1
     }
@@ -1092,6 +1094,7 @@ Class.bigCheese = {
 };
 Class.blizzard = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.2
     }
@@ -1324,7 +1327,6 @@ Class.coil = {
     PARENT: "genericTank",
     LABEL: "Coil",
     DANGER: 7,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -1671,7 +1673,6 @@ Class.duplicator = {
     PARENT: "genericTank",
     LABEL: "Duplicator",
     DANGER: 7,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: [20, 8, -4 / 3, 0, 0, 20, 0],
@@ -2260,6 +2261,7 @@ Class.megaSmasher = {
 };
 Class.megaTornado = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.1
     }
@@ -2753,7 +2755,6 @@ Class.quadruplex = {
     PARENT: "genericTank",
     LABEL: "Quadruplex",
     DANGER: 7,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -3467,12 +3468,14 @@ Class.swarmer = {
 };
 Class.tempest = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.1
     }
 }, { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinSlow", hat2Size: 3.25, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
 Class.thunderbolt = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.1
     }
@@ -3511,7 +3514,6 @@ Class.triplex = {
     PARENT: "genericTank",
     LABEL: "Triplex",
     DANGER: 7,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -3601,6 +3603,7 @@ Class.twister = {
 };
 Class.typhoon = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     BODY: {
         FOV: base.FOV * 1.2
     }

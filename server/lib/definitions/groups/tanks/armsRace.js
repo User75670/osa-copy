@@ -1205,31 +1205,6 @@ Class.issuer = {
     ],
     UPGRADES_TIER_4: ["circulator", "autoIssuer", "issuerdrive"]
 };
-Class.iterator = {
-    PARENT: "genericTank",
-    LABEL: "Iterator",
-    DANGER: 7,
-    STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
-    GUNS: [
-        {
-            POSITION: [22, 8, -4 / 3, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ["superSplitterBullet", {CONTROLLERS: ["snake"]}] // nerf supersplitter when
-            }
-        },
-        ...weaponMirror([{
-            POSITION: [4.625, 10.5, 2.75, 0.375, 7, -91.5, 0]
-        },
-        {
-            POSITION: [4, 9, 3, 1.5, 5, -95, 0]
-        },
-        {
-            POSITION: [3.75, 10, 2.125, -1.5, 5.25, -50, 0]
-        }])
-    ]
-};
 Class.jalopy = {
     PARENT: "genericTank",
     LABEL: "Jalopy",

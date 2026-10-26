@@ -277,7 +277,6 @@ Class.volute = {
     PARENT: "genericTank",
     LABEL: "Volute",
     DANGER: 6,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -568,6 +567,30 @@ Class.itHurtsDontTouchIt = {
         }]
     }]
 };
+Class.iterator = {
+    PARENT: "genericTank",
+    LABEL: "Iterator",
+    DANGER: 7,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    GUNS: [
+        {
+            POSITION: [22, 8, -4 / 3, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                TYPE: ["superSplitterBullet", {CONTROLLERS: ["snake"]}] // nerf supersplitter when
+            }
+        },
+        ...weaponMirror([{
+            POSITION: [4.625, 10.5, 2.75, 0.375, 7, -91.5, 0]
+        },
+        {
+            POSITION: [4, 9, 3, 1.5, 5, -95, 0]
+        },
+        {
+            POSITION: [3.75, 10, 2.125, -1.5, 5.25, -50, 0]
+        }])
+    ]
+};
 Class.jumpSmasher = {
     PARENT: "genericSmasher",
     LABEL: "Jump Smasher",
@@ -667,7 +690,6 @@ Class.oroboros = {
     PARENT: "genericTank",
     LABEL: "Oroboros",
     DANGER: 7,
-    STAT_NAMES: statnames.desmos,
     BODY: Class.builder.BODY,
     GUNS: [
         {
@@ -707,7 +729,6 @@ Class.python = {
     PARENT: "genericTank",
     LABEL: "Python", //"Super Spiral",
     DANGER: 7,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {

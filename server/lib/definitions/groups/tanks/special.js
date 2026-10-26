@@ -932,7 +932,7 @@ Class.aeolus = {
     ANGLE: 60,
     CONTROLLERS: [["whirlwind", { maxDistance: 1, minDistance: 1 }]],
     HAS_NO_RECOIL: true,
-    STAT_NAMES: statnames.whirlwind,
+    STAT_NAMES: statnames.satellite,
     TURRETS: [
         {
             POSITION: [24, 0, 0, 0, 360, 0],

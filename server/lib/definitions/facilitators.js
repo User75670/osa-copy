@@ -936,11 +936,6 @@ exports.makeWhirlwind = (type, options = {}) => {
     } else {
         output.TURRETS = [...type.TURRETS, ...hat]; 
     }
-    if (type == Class.genericTank) {
-        output.STAT_NAMES = statnames.satellite; 
-    } else {
-        output.STAT_NAMES = statnames.mixed; 
-    }
     output.AI = {SPEED: options.satelliteSpeed ??= 2};
     output.ANGLE = (360 / options.satellites);
     if (type.CONTROLLERS == null) {

@@ -6,7 +6,6 @@ const g = require("../../gunvals.js");
 Class.desmos = {
     PARENT: "genericTank",
     LABEL: "Desmos",
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -79,7 +78,6 @@ Class.spiral = {
     PARENT: "genericTank",
     LABEL: "Spiral",
     DANGER: 6,
-    STAT_NAMES: statnames.desmos,
     GUNS: [
         {
             POSITION: {
@@ -336,6 +334,7 @@ Class.master = {
 };
 Class.monsoon = makeWhirlwind({
     PARENT: "genericTank",
+    STAT_NAMES: statnames.satellite,
     TURRETS: [
         {
             TYPE: ["hexagonHat_spin", {COLOR: "black"}],

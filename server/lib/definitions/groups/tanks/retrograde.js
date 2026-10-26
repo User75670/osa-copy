@@ -4,7 +4,7 @@ const g = require("../../gunvals.js");
 
 // Set the below variable to true to enable OSA-specific fixes and adjustments for Retrograde and certain tank designs.
 // This also enables the Arms Race Retrograde addon if it is present.
-const better_retrograde = true;
+const better_retrograde = false;
 
 // Tier 2 (Level 30)
 Class.blaster = {
@@ -149,7 +149,7 @@ Class.blower = makeGunner("destroyer", "Blower");
 Class.bonker = {
     PARENT: "genericSmasher",
     LABEL: "Bonker",
-    SIZE: Class.genericTank.SIZE * 0.7,
+    SIZE: 10,
     BODY: {
         FOV: 1.2 * base.FOV,
         HEALTH: 0.95 * base.HEALTH,
@@ -541,8 +541,6 @@ if (better_retrograde) {
             }
         ]
     };
-    Class.focal.BODY = Class.gatlingGun.BODY;
-    Class.focal.CONTROLLERS = ["zoom"];
     Class.gatlingGun.GUNS[0].POSITION = {
         LENGTH: 14,
         WIDTH: 9.5,
@@ -564,8 +562,6 @@ if (better_retrograde) {
         ANGLE: 180
     };
     Class.halfNHalf.GUNS[1].PROPERTIES.SHOOT_SETTINGS = combineStats([g.basic, g.machineGun, g.gatlingGun, g.doubleTwin]);
-    //Class.machineFlank.LABEL = "Double Machine";
-    //Class.machineTriple.LABEL = "Triple Machine";
     Class.splasher.GUNS[0].POSITION = {
         LENGTH: 20,
         WIDTH: 7
@@ -602,15 +598,20 @@ if (better_retrograde) {
     ];
 
     Class.blaster.UPGRADES_TIER_3.push("flamethrower_RG", "halfNHalf", "subverter");
-    Class.flankGuard.UPGRADES_TIER_3.push("machineTriple");
     Class.gatlingGun.UPGRADES_TIER_3.splice(0, 1, "focal");
-    Class.hunter.UPGRADES_TIER_3.push("focal");
-    Class.sprayer.UPGRADES_TIER_3.push("splasher");
 
-    if (Config.arms_race && Config.retrograde) {
-        Class.blaster.UPGRADES_TIER_3.push("queller", "volley");
-        Class.flamethrower_RG.LABEL = "Wildfire";
+    if (Config.retrograde) {
+        Class.flankGuard.UPGRADES_TIER_3.push("machineTriple");
+        Class.focal.BODY = Class.gatlingGun.BODY;
+        Class.focal.CONTROLLERS = ["zoom"];
+        Class.hunter.UPGRADES_TIER_3.push("focal");
+        Class.sprayer.UPGRADES_TIER_3.push("splasher");
 
-        require("./armsRace.js");
+        if (Config.arms_race) {
+            Class.blaster.UPGRADES_TIER_3.push("queller", "volley");
+            Class.flamethrower_RG.LABEL = "Wildfire";
+
+            require("./armsRace.js");
+        };
     };
 };
