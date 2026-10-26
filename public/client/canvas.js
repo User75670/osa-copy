@@ -777,12 +777,12 @@ class Canvas {
             if (this.videoRecorder) {
                 switch (this.videoRecorder.state) {
                     case "inactive":
-                        global.createMessage("Recorder Started!", 2_000);
+                        global.createMessage("Recorder started!", 2_000);
                         this.videoRecorderCanvas.start();
                         this.videoRecorder.start();
                         break;
                     case "recording":
-                        global.createMessage("Recorder Stopped! Saving file...", 5_000);
+                        global.createMessage("Recorder stopped! Saving file...", 5_000);
                         this.videoRecorder.stop();
                         this.videoRecorderCanvas.stop();
                         setTimeout(() => this.videoRecorder.download(), 200);
@@ -792,7 +792,7 @@ class Canvas {
                 this.videoRecorderCanvas.init();
                 this.videoRecorderCanvas.start();
                 this.videoRecorder = new AdvancedRecorder(this.videoRecorderCanvas.getCanvas(), 60);
-                global.createMessage("Recorder Started!", 2_000);
+                global.createMessage("Recorder started!", 2_000);
                 this.videoRecorder.start();
             }
         }
@@ -842,7 +842,7 @@ class Canvas {
             let q = URL.createObjectURL(new Blob([p], {type: x})),
             w = document.createElement("a");
             w.style.display = "none";
-            w.setAttribute("download", "osa-screenshot.png");
+            w.setAttribute("download", "image.png");
             w.setAttribute("href", q);
             document.body.appendChild(w);
             setTimeout(() => {
@@ -850,7 +850,7 @@ class Canvas {
                 document.body.removeChild(w);
             }, 100);
             w.click();
-            global.createMessage("Saving screenshot...", 3_000);
+            //global.createMessage("Saving screenshot...", 3_000);
         };
         if (localStorage.getItem("optCopyScreenshotsChecked") === "true" && navigator.clipboard && window.ClipboardItem) {
             cv.toBlob((blob) => {
