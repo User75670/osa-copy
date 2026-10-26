@@ -105,7 +105,7 @@ module.exports = {
             port: 3003,
             id: "lc",
 
-            region: "Europe",
+            region: "Local",
             location: "Localhost",
             gamemode: ["tdm"],
             player_cap: 80,
@@ -138,7 +138,7 @@ module.exports = {
             port: 3004,
             id: "ld",
 
-            region: "US Central",
+            region: "Local",
             location: "Localhost",
             gamemode: ["mothership"],
             player_cap: 80,
@@ -159,7 +159,7 @@ module.exports = {
             port: 3100,
             id: "lz",
 
-            region: "US West",
+            region: "Local",
             location: "Localhost",
             gamemode: ["sandbox_nexus"],
             player_cap: 80,
@@ -197,7 +197,7 @@ module.exports = {
             port: 3101,
             id: "lpa",
 
-            region: "Asia",
+            region: "Local",
             location: "Localhost",
             gamemode: ["sandbox"],
             player_cap: 80,
@@ -216,7 +216,7 @@ module.exports = {
             port: 3102,
             id: "lpb",
 
-            region: "Oceania",
+            region: "Local",
             location: "Localhost",
             gamemode: ["arms_race", "retrograde", "sandbox"],
             player_cap: 80,
