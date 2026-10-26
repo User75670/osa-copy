@@ -331,7 +331,7 @@ body.mobile #startMenuWrapper { max-width: 780px; }
 
 .mainWrapper {
 	transition: all 0.5s;
-	padding: 75px 20px 0;
+	padding: 47px 20px 0; /* Should be 75px, reduced to match base arras' measurements while keeping support for menu tabs */
 }
 body.mobile .mainWrapper {
 	padding: 10px 10px 0;
