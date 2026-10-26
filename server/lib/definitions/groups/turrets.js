@@ -1491,32 +1491,25 @@ Class.ihdtiBolt3 = {
 // thing for later
 Class.crowbarTurretTank = {
     PARENT: "genericTank",
+    LABEL: "",
+    BODY: {
+        FOV: 6
+    },
+    CONTROLLERS: ["onlyAcceptInArc", "nearestDifferentMaster"],
     COLOR: 16,
     INDEPENDENT: true,
     BODY: {
         FOV: 1
     },
-    TURRETS: [{
-        POSITION: [20, 0, 0, 0, 180, 1],
-        TYPE: makeTurret({
-            PARENT: "genericTank",
-            LABEL: "",
-            BODY: {
-                FOV: 6
-            },
-            CONTROLLERS: ["onlyAcceptInArc", "nearestDifferentMaster"],
-            COLOR: 16,
-            GUNS: [
-                {
-                    POSITION: [24, 11, 1, 0, 0, 0, 0],
-                    PROPERTIES: {
-                        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.autoTurret, { recoil: 0, damage: 0.91 }]),
-                        TYPE: "bullet"
-                    }
-                }
-            ]
-        })
-    }]
+    GUNS: [
+        {
+            POSITION: [24, 11, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.autoTurret, { recoil: 0, damage: 0.91 }]),
+                TYPE: "bullet"
+            }
+        }
+    ]
 };
 
 // Arras celestial leaks
