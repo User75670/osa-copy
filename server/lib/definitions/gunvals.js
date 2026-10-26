@@ -750,7 +750,7 @@ module.exports = {
         reload: 2,
         damage: 2,
         recoil: 2,
-        size: 1.2
+        size: 5 / 3
     },
     setTrap: {
         reload: 1.1,
