@@ -3969,6 +3969,65 @@ Class.hewnTriple = {
             POSITION: {
                 LENGTH: 19,
                 WIDTH: 8,
+                Y: -0.2,
+                ANGLE: -160
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        }, {delayIncrement: 0.5}),
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                Y: -5.5,
+                ANGLE: -265
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        }, {delayIncrement: 0.5}),
+        ...weaponArray(weaponMirror({
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble]),
+                TYPE: "bullet"
+            }
+        }, {delayIncrement: 0.5}), 3),
+        // TODO: Figure out what these two are supposed to be.
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 1,
+                X: 8,
+                ANGLE: 150
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 1,
+                X: 8,
+                ANGLE: -15,
+            }
+        }
+    ]
+};
+Class.hewnTriple_old = {
+    PARENT: "genericTank",
+    LABEL: "Old Hewn Triple",
+    DANGER: 8,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
                 Y: -5.5,
                 ANGLE: -25
             },

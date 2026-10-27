@@ -527,7 +527,7 @@ if (Config.retrograde && enable_retrograde_menu) {
     };
 };
 
-// Dynamic Addon Menu
+// Dynamic Addon Menu + OSA exclusive Menus
 Class.menu_addons = makeMenu("Addons Menu", {
     tooltip: "Content that is (usually) not part of Open Source Arras but was added by someone else.",
     boxColor: "rainbow",
@@ -535,6 +535,8 @@ Class.menu_addons = makeMenu("Addons Menu", {
         "menu_youtuber",
         "guillotine",
         "banHammer",
-        "menu_testing"
+        "menu_testing",
+        "menu_armsRace"
     ]
 });
+Class.menu_armsRace = makeMenu("Unused Arms Race", { boxLabel: "Unused AR", upgrades: [/*"duster", */"hewnTriple_old"] });
