@@ -38,7 +38,7 @@ module.exports = {
         player_cap  - Not including bots. Set to 0 to disable.
 
         featured    - Whether the server is featured or not.
-        hidden    - Whether the server shows up in the server list (if its id isn't in the url).
+        hidden      - Whether the server shows up in the server list (if its id isn't in the url).
         private     - Whether the server requires a privileged token to join (except through server travel).
 
         properties  - This overrides other settings in this file, assuming the selected gamemode doesn't also override it.

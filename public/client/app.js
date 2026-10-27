@@ -101,7 +101,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
         fetch("/getServers.json").then(response => response.json()).then(json => {
             if (localStorage.getItem("optShowLocalhostChecked") === "true") json.unshift({
-                id: "localhost",
+                id: json.some(server => server.id === "x") ? "localhost" : "x",
                 ip: "localhost:5000",
                 players: 0,
                 maxPlayers: 80,
@@ -110,7 +110,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 private: false,
                 region: "Local",
                 location: "Localhost",
-                gameMode: "FFA"
+                gameMode: "Private"
             });
             global.servers = json;
             global.loadServerSelector(json); // The code is at ./serverSelectorHandler.js
@@ -5315,7 +5315,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 if (cb.id === "optRainbowTeamColors") config.game.rainbowTeamColors = !!cb.value;
                 if (cb.id === "optShowLocalhost") {
                     if (cb.value) global.servers.unshift({
-                        id: "localhost",
+                        id: "x",
                         ip: "localhost:5000",
                         players: 0,
                         maxPlayers: 80,
@@ -5324,7 +5324,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                         private: false,
                         region: "Local",
                         location: "Localhost",
-                        gameMode: "FFA"
+                        gameMode: "Private"
                     });
                     else global.servers = global.servers.filter(s => s.id !== "localhost");
                     global.loadServerSelector(global.servers);

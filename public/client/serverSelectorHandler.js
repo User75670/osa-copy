@@ -205,28 +205,25 @@ let initializeFilter = () => {
         let saved = storageKey ? data.findIndex(option => option.name === localStorage.getItem(storageKey)) : -1;
         if (saved >= 0) restoreFilters.push(() => spans[saved].click());
     };
-    let checkFilter = (h, e) => {
-        let check = false;
-        e.forEach(data => {
-            if (data.gameMode == h.gameMode) {
-                check = true;
-            }
-        })
-        return check;
+    let checkRegionFilter = (server, array) => {
+        return array.some(data => data.region === server.region);
+    }
+    let checkGamemodeFilter = (server, array) => {
+        return array.some(data => data.gameMode === server.gameMode);
     }
     createFilter(svFilterRegionDoc, [
-        { name: "All", filter: (h) => { return checkFilter(h, global.filters.regions.all) } },
-        { name: "USA", filter: (h) => { return checkFilter(h, global.filters.regions.usa) } },
-        { name: "Europe", filter: (h) => { return checkFilter(h, global.filters.regions.europe) } },
-        { name: "Asia", filter: (h) => { return checkFilter(h, global.filters.regions.asia) } }
+        { name: "All", filter: (h) => checkRegionFilter(h, global.filters.regions.all) },
+        { name: "USA", filter: (h) => checkRegionFilter(h, global.filters.regions.usa) },
+        { name: "Europe", filter: (h) => checkRegionFilter(h, global.filters.regions.europe) },
+        { name: "Asia", filter: (h) => checkRegionFilter(h, global.filters.regions.asia) }
     ], "serverFilterRegion");
     createFilter(svFilterModeDoc, [
-        { name: "All", filter: (h) => { return checkFilter(h, global.filters.gamemodes.all) } },
-        { name: "Normal", filter: (h) => { return checkFilter(h, global.filters.gamemodes.normal) } },
-        { name: "Growth", filter: (h) => { return checkFilter(h, global.filters.gamemodes.growth) } },
-        { name: "Arms Race", filter: (h) => { return checkFilter(h, global.filters.gamemodes.armsRace) } },
-        { name: "Other", filter: (h) => { return checkFilter(h, global.filters.gamemodes.other) } },
-        { name: "Sandbox", filter: (h) => { return checkFilter(h, global.filters.gamemodes.sandbox) } }
+        { name: "All", filter: (h) => checkGamemodeFilter(h, global.filters.gamemodes.all) },
+        { name: "Normal", filter: (h) => checkGamemodeFilter(h, global.filters.gamemodes.normal) },
+        { name: "Growth", filter: (h) => checkGamemodeFilter(h, global.filters.gamemodes.growth) },
+        { name: "Arms Race", filter: (h) => checkGamemodeFilter(h, global.filters.gamemodes.armsRace) },
+        { name: "Other", filter: (h) => checkGamemodeFilter(h, global.filters.gamemodes.other) },
+        { name: "Sandbox", filter: (h) => checkGamemodeFilter(h, global.filters.gamemodes.sandbox) }
     ], "serverFilterMode");
     return restoreFilters;
 }
