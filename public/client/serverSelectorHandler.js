@@ -149,7 +149,7 @@ let initializeFilter = () => {
         } else global.filters.regions.usa.push(s); // Local goes here too, arras lumps the default Local region localhost:5000 "server" entry with USA
 
         // Gamemodes (old sorting)
-        global.filters.gamemodes.all.push(s);
+        /*global.filters.gamemodes.all.push(s);
         if (s.gameMode.includes("Sandbox")) {
             global.filters.gamemodes.sandbox.push(s);
         } else if (s.gameMode.includes("FFA") || s.gameMode === "Maze") {
@@ -158,10 +158,10 @@ let initializeFilter = () => {
             global.filters.gamemodes.squads.push(s);
         } else if (s.gameMode.includes("TDM")) {
             global.filters.gamemodes.tdm.push(s);
-        } else global.filters.gamemodes.minigames.push(s);
+        } else global.filters.gamemodes.minigames.push(s);*/
 
         // Gamemodes (new sorting)
-        /*global.filters.gamemodes.all.push(s);
+        global.filters.gamemodes.all.push(s);
         if (s.gameMode.includes("Sandbox")) {
             global.filters.gamemodes.sandbox.push(s);
         } else if (s.gameMode.includes("Arms Race") || s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
@@ -181,7 +181,7 @@ let initializeFilter = () => {
             s.gameMode.includes("Labyrinth")
         ) {
             global.filters.gamemodes.normal.push(s);
-        } else global.filters.gamemodes.other.push(s);*/
+        } else global.filters.gamemodes.other.push(s);
 
     };
     let l = [];
