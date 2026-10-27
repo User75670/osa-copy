@@ -347,7 +347,7 @@ body.mobile .mainWrapper {
 	background-color: #dde6eb;
 	overflow: hidden;
 }
-body.mobile .startMenu { max-height: 320px; }
+body.mobile .startMenu { max-height: 340px; }
 
 .startMenuHolder {
 	position: relative;
@@ -356,7 +356,7 @@ body.mobile .startMenu { max-height: 320px; }
 	margin: 10px 12px;
 	overflow: hidden;
 }
-body.mobile .startMenuHolder { height: 280px; }
+body.mobile .startMenuHolder { height: 300px; }
 
 .startMenuHolder.mainHolder {
 	flex-shrink: 0;
