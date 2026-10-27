@@ -465,7 +465,7 @@ if (Config.retrograde) {
     Class.machineGun.UPGRADES_TIER_2.push("blaster", "gatlingGun", "machineFlank");
     Class.sniper.UPGRADES_TIER_2.push("gatlingGun");
 
-    if (!better_retrograde) Class.hexaTank.UPGRADES_TIER_3.push("tornado_AR");
+    if (!better_retrograde && !Config.arms_race) Class.hexaTank.UPGRADES_TIER_3.push("tornado_AR");
     Class.tripleShot.UPGRADES_TIER_3.push("triBlaster");
 };
 
