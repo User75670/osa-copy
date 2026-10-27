@@ -200,6 +200,6 @@ const enable_missing_tanks = require("../../groups/tanks/armsRace.js");
 if (!enable_missing_tanks) return;
 
 if (Config.arms_race) {
-	Class.pounder.UPGRADES_TIER_2.push("fusion");
-	Class.sniper.UPGRADES_TIER_2.push("crossfire");
+    Class.pounder.UPGRADES_TIER_2.push("fusion");
+    Class.sniper.UPGRADES_TIER_2.push("crossfire");
 };

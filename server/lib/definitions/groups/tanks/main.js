@@ -3756,7 +3756,7 @@ const dmca_censor_name = [
 ];
 for (let type of dmca_censor_name) {
     if (Class[type].LABEL) {
-        Class[type].LABEL += "/N"
+        Class[type].LABEL += "/N";
     }
 };
 const dmca_censor_design = [
@@ -3806,6 +3806,6 @@ const dmca_censor_design = [
 ];
 for (let type of dmca_censor_design) {
     if (Class[type].LABEL) {
-        Class[type].LABEL += "/D"
+        Class[type].LABEL += "/D";
     }
 };

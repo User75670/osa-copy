@@ -5735,12 +5735,14 @@ Class.twin.UPGRADES_TIER_4 = ["duo"];
 Class.underseer.UPGRADES_TIER_4 = ["conductor", "conjurer"];
 
 const better_retrograde = require("../../groups/tanks/retrograde.js");
-if (better_retrograde && Config.retrograde) try {
-    require("../../entityAddons/armsRaceRetrograde/tanks.js");
-} catch(error) {
-    if (error.code !== "MODULE_NOT_FOUND") {
-        throw error;
-    }
+if (better_retrograde && Config.retrograde) {
+    try {
+        require("../../entityAddons/armsRaceRetrograde/tanks.js");
+    } catch(error) {
+        if (error.code !== "MODULE_NOT_FOUND") {
+            throw error;
+        }
+    } 
 };
 
 module.exports = enable_missing_tanks;
