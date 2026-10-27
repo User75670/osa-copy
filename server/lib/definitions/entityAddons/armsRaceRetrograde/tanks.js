@@ -32,7 +32,7 @@ const doubleTanksT3 = [
     "sprayer"
 ];
 for (type of doubleTanksT3) {
-    const truncatedType = type.replace(/Gun$/, "");;
+    const truncatedType = type.replace(/Gun$/, "");
     const truncatedLabel = Class[type].LABEL.replace(/\s+Gun$/, "");
 
     Class[`double${truncatedType.charAt(0).toUpperCase() + truncatedType.slice(1)}`] = makeFlank(type, 2, `Double ${truncatedLabel}`, { extraStats: [g.doubleTwin] });
