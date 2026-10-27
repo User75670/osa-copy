@@ -119,7 +119,7 @@ server = http.createServer((req, res) => {
                 maxPlayers: server.maxPlayers,
                 id: server.id,
                 featured: server.featured,
-                unlisted: server.unlisted,
+                hidden: server.hidden,
                 private: server.private,
                 region: server.region,
                 location: server.location,
@@ -237,7 +237,7 @@ server = http.createServer((req, res) => {
 });
 
 // Loads a game server
-function loadGameServer(loadViaMain = false, host, port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate) {
+function loadGameServer(loadViaMain = false, host, port, gamemode, region, location, webProperties, properties, isFeatured, isHidden, isPrivate) {
     // Determine the new server index and initialize an empty object in the global servers array
     if (!loadViaMain) {
         let index = global.servers.length;
@@ -254,7 +254,7 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, locat
                 webProperties,
                 properties,
                 isFeatured,
-                isUnlisted,
+                isHidden,
                 isPrivate,
                 index
             }
@@ -286,7 +286,7 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, locat
                 process.exit(1);
             }
             global.launchedOnMainServer = true;
-            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate, false);
+            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, location, webProperties, properties, isFeatured, isHidden, isPrivate, false);
         }, 10);
     }
 }
@@ -325,7 +325,7 @@ server.listen(Config.port, () => {
             { id: server.id, maxPlayers: server.player_cap },
             server.properties,
             server.featured,
-            server.unlisted,
+            server.hidden,
             server.private
         );
     });

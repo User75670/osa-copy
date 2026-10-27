@@ -38,7 +38,7 @@ module.exports = {
         player_cap  - Not including bots. Set to 0 to disable.
 
         featured    - Whether the server is featured or not.
-        unlisted    - Whether the server shows up in the server list (if its id isn't in the url).
+        hidden    - Whether the server shows up in the server list (if its id isn't in the url).
         private     - Whether the server requires a privileged token to join (except through server travel).
 
         properties  - This overrides other settings in this file, assuming the selected gamemode doesn't also override it.
@@ -58,7 +58,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -92,7 +92,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -111,7 +111,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -144,7 +144,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -165,7 +165,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -203,7 +203,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -222,7 +222,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: false,
+            hidden: false,
             private: false,
 
             properties: {
@@ -245,7 +245,7 @@ module.exports = {
             gamemode: ["arms_race"], // modifiers to put on the sandboxes
             player_cap: 80, // player cap for all sandboxes on this thread
 
-            // featured/unlisted/private aren't available for sandbox servers (the non-nexus servers are unlisted by default)
+            // featured/hidden/private aren't available for sandbox servers (the non-nexus servers are hidden by default)
 
             nexus: true, // enable sandbox nexus in server + related commands
             nexus_id: "lz", // nexus shares properties with all other sandbox servers
