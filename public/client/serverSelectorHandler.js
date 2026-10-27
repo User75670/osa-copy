@@ -115,17 +115,11 @@ let initializeFilter = () => {
         },
         gamemodes: {
             all: [],
-            sandbox: [],
-
-            ffa: [],
-            squads: [],
-            tdm: [],
-            minigames: [],
-
             normal: [],
             growth: [],
             armsRace: [],
-            other: []
+            other: [],
+            sandbox: []
         }
     }
     let nvmText = document.createElement("td");
@@ -148,40 +142,30 @@ let initializeFilter = () => {
             global.filters.regions.asia.push(s);
         } else global.filters.regions.usa.push(s); // Local goes here too, arras lumps the default Local region localhost:5000 "server" entry with USA
 
-        // Gamemodes (old sorting)
-        /*global.filters.gamemodes.all.push(s);
+        // Gamemodes
         if (s.gameMode.includes("Sandbox")) {
             global.filters.gamemodes.sandbox.push(s);
-        } else if (s.gameMode.includes("FFA") || s.gameMode === "Maze") {
-            global.filters.gamemodes.ffa.push(s);
-        } else if (s.gameMode.includes("Duos") || s.gameMode.includes("Trios") || s.gameMode.includes("Squads") || s.gameMode.includes("Wars")) {
-            global.filters.gamemodes.squads.push(s);
-        } else if (s.gameMode.includes("TDM")) {
-            global.filters.gamemodes.tdm.push(s);
-        } else global.filters.gamemodes.minigames.push(s);*/
-
-        // Gamemodes (new sorting)
-        global.filters.gamemodes.all.push(s);
-        if (s.gameMode.includes("Sandbox")) {
-            global.filters.gamemodes.sandbox.push(s);
-        } else if (s.gameMode.includes("Arms Race") || s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
-            if (s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
-                global.filters.gamemodes.growth.push(s);
-            } else global.filters.gamemodes.armsRace.push(s);
-        } else if (
-            s.gameMode.includes("FFA") ||
-            s.gameMode === "Maze" ||
-            s.gameMode.includes("Duos") ||
-            s.gameMode.includes("Trios") ||
-            s.gameMode.includes("Squads") ||
-            s.gameMode.includes("Wars") ||
-            s.gameMode.includes("TDM") ||
-            s.gameMode.includes("Forge") ||
-            s.gameMode.includes("Nexus") ||
-            s.gameMode.includes("Labyrinth")
-        ) {
-            global.filters.gamemodes.normal.push(s);
-        } else global.filters.gamemodes.other.push(s);
+        } else {
+            global.filters.gamemodes.all.push(s);
+            if (s.gameMode.includes("Arms Race") || s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
+                if (s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
+                    global.filters.gamemodes.growth.push(s);
+                } else global.filters.gamemodes.armsRace.push(s);
+            } else if (
+                s.gameMode.includes("FFA") ||
+                s.gameMode === "Maze" ||
+                s.gameMode.includes("Duos") ||
+                s.gameMode.includes("Trios") ||
+                s.gameMode.includes("Squads") ||
+                s.gameMode.includes("Wars") ||
+                s.gameMode.includes("TDM") ||
+                s.gameMode.includes("Forge") ||
+                s.gameMode.includes("Nexus") ||
+                s.gameMode.includes("Labyrinth")
+            ) {
+                global.filters.gamemodes.normal.push(s);
+            } else global.filters.gamemodes.other.push(s);
+        }
 
     };
     let l = [];
@@ -219,7 +203,7 @@ let initializeFilter = () => {
             });
         }
         let saved = storageKey ? data.findIndex(option => option.name === localStorage.getItem(storageKey)) : -1;
-        if (saved > 0) restoreFilters.push(() => spans[saved].click());
+        if (saved >= 0) restoreFilters.push(() => spans[saved].click());
     };
     let checkFilter = (h, e) => {
         let check = false;
@@ -238,10 +222,6 @@ let initializeFilter = () => {
     ], "serverFilterRegion");
     createFilter(svFilterModeDoc, [
         { name: "All", filter: (h) => { return checkFilter(h, global.filters.gamemodes.all) } },
-        /*{ name: "FFA", filter: (h) => { return checkFilter(h, global.filters.gamemodes.ffa) } },
-        { name: "Squads", filter: (h) => { return checkFilter(h, global.filters.gamemodes.squads) } },
-        { name: "TDM", filter: (h) => { return checkFilter(h, global.filters.gamemodes.tdm) } },
-        { name: "Minigames", filter: (h) => { return checkFilter(h, global.filters.gamemodes.minigames) } },*/
         { name: "Normal", filter: (h) => { return checkFilter(h, global.filters.gamemodes.normal) } },
         { name: "Growth", filter: (h) => { return checkFilter(h, global.filters.gamemodes.growth) } },
         { name: "Arms Race", filter: (h) => { return checkFilter(h, global.filters.gamemodes.armsRace) } },
