@@ -1,4 +1,4 @@
-const { combineStats, addUpgrades, removeUpgrades, weaponArray, weaponMirror, weaponStack, makeAuto, makeBattle, makeBird, makeCap, makeFlank, makeFore, makeGuard, makeGunner, makeOver } = require("../../facilitators.js");
+const { combineStats, removeUpgrades, weaponArray, weaponMirror, weaponStack, makeAuto, makeBattle, makeBird, makeCap, makeFlank, makeFore, makeGuard, makeGunner, makeOver } = require("../../facilitators.js");
 const { base } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");

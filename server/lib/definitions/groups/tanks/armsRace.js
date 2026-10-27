@@ -1,4 +1,4 @@
-const { combineStats, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeGunner, makeOver, makeRadialAuto, makeStorm, makeVortex, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { combineStats, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeGunner, makeMenu, makeOver, makeRadialAuto, makeStorm, makeVortex, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
 const { base, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
@@ -5752,7 +5752,7 @@ if (!enable_missing_tanks) {
     //removeUpgrades("sniper", 2, ["marksman"]);
 
     removeUpgrades("assassin", 3, ["single"/*, "deadeye"*/]);
-    addUpgrades("basic", 3, ["single"]);
+    Class.basic.UPGRADES_TIER_3 = ["single"];
     //removeUpgrades("builder", 3, ["assembler"]);
     //removeUpgrades("hunter", 3, ["xHunter", "nimrod"]);
     //removeUpgrades("minigun", 3, ["vulture"]);
