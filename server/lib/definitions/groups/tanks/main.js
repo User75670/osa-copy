@@ -3211,8 +3211,7 @@ Class.spike = {
     LABEL: "Spike",
     DANGER: 7,
     BODY: {
-        DAMAGE: base.DAMAGE * 1.1,
-        SPEED: base.SPEED
+        DAMAGE: base.DAMAGE * 1.1
     },
     TURRETS: weaponArray([{
         TYPE: ["triangleHat_spin", {COLOR: "black"}],

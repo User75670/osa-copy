@@ -4,7 +4,11 @@ const g = require("../../gunvals.js");
 
 // Set the below variable to true to enable OSA-specific fixes and adjustments for Retrograde and certain tank designs.
 // This also enables the Arms Race Retrograde addon if it is present.
-const better_retrograde = false;
+const better_retrograde = true;
+
+// Set the below variable to true to correct certain LABELs to be closer to Arms Race's conventions.
+// This also affects tanks from the Arms Race Retrograde addon if it is present.
+const label_correction = true;
 
 // Tier 2 (Level 30)
 Class.blaster = {
@@ -479,7 +483,12 @@ if (Config.arms_race || Config.retrograde) {
 };
 
 // OSA Retrograde Fixes
-module.exports = better_retrograde;
+module.exports = { better_retrograde, label_correction };
+if (label_correction) {
+    Class.machineFlank.LABEL = "Double Machine";
+    Class.machineTriple.LABEL = "Triple Machine";
+    Class.triBlaster.LABEL = "Bent Blaster";
+};
 if (better_retrograde) {
     g.blasterFix = { size: 1.25 };
     g.flamethrowerRG = {
@@ -599,6 +608,7 @@ if (better_retrograde) {
 
     Class.blaster.UPGRADES_TIER_3.push("flamethrower_RG", "halfNHalf", "subverter");
     Class.gatlingGun.UPGRADES_TIER_3.splice(0, 1, "focal");
+    Class.gatlingGun.UPGRADES_TIER_3.push("nailgun");
 
     if (Config.retrograde) {
         Class.flankGuard.UPGRADES_TIER_3.push("machineTriple");
@@ -608,9 +618,6 @@ if (better_retrograde) {
         Class.sprayer.UPGRADES_TIER_3.push("splasher");
 
         if (Config.arms_race) {
-            Class.blaster.UPGRADES_TIER_3.push("queller", "volley");
-            Class.flamethrower_RG.LABEL = "Wildfire";
-
             require("./armsRace.js");
         } else {
             Class.pounder.UPGRADES_TIER_3.push("subverter", "deathStar");

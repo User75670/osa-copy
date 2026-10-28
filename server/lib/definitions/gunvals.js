@@ -368,6 +368,19 @@ module.exports = {
         spray: 0.5,
         resist: 1.1
     },
+    central: {
+        //reload: 1.25,
+        //recoil: 4 / 3,
+        shudder: 0.8,
+        health: 0.8,
+        pen: 1.1,
+        speed: 1.25,
+        maxSpeed: 1.25,
+        range: 1.1,
+        density: 1.25,
+        spray: 0.5,
+        resist: 1.1
+    },
     atomizer: {
         reload: 0.3,
         recoil: 0.8,

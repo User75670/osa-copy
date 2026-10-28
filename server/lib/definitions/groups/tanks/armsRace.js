@@ -2054,6 +2054,7 @@ const autoTanksT4 = [
     "mingler",
     "mosey",
     "musket",
+    "nailgun",
     "necromancer",
     "octoTank",
     "overdose",
@@ -2640,6 +2641,45 @@ Class.captrapper = makeCap({
         }
     ]
 });
+Class.central = {
+    PARENT: "genericTank",
+    LABEL: "Central",
+    DANGER: 8,
+    BODY: {
+        FOV: base.FOV * 1.2
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 25,
+                WIDTH: 7
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.lowPower, g.machineGun, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 9.5,
+                ASPECT: 1.25,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.central]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 10.25,
+                ASPECT: -1.8
+            }
+        }
+    ]
+};
 Class.circulator = {
     PARENT: "genericTank",
     LABEL: "Circulator",
@@ -3663,6 +3703,7 @@ Class.ethereal = {
         }
     ]
 };
+Class.fenghuang = makeBird("focal", "Fenghuang");
 Class.flexedDouble = makeFlank("pentaShot", 2, "Flexed Double", { extraStats: [g.doubleTwin] });
 Class.foretrapper = makeFore({
     PARENT: "genericTank",
@@ -4560,6 +4601,7 @@ Class.overdoubleGunner = makeOver({
     ], 2)
 }, "Overdouble Gunner", { angle: 90, renderBehind: true });
 Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", { angle: 90, renderBehind: true });
+Class.overnailer = makeOver("nailgun", "Overnailer");
 Class.overstorm = makeStorm("overseer", "Overstorm");
 Class.parasite = {
     PARENT: "genericTank",
@@ -5752,6 +5794,7 @@ Class.factory.UPGRADES_TIER_4 = ["autoFactory"];
 Class.falcon.UPGRADES_TIER_4 = ["autoFalcon"];
 Class.fighter.UPGRADES_TIER_4 = [/*"boxer", "brawler", "sparrow", "blitz", */"autoFighter", /*"strider", "griffin", "shocker", "cockatoo", "pug", "mangle", */"scrimmer"];
 Class.flankGuard.UPGRADES_TIER_4 = ["ternion"];
+Class.focal.UPGRADES_TIER_4 = ["central", "mizzler", "fenghuang", "autoFocal"];
 Class.fortress.UPGRADES_TIER_4 = ["autoFortress"];
 Class.fork.UPGRADES_TIER_4 = [];
 Class.gunner.UPGRADES_TIER_4 = ["dam"];
@@ -5769,6 +5812,7 @@ Class.medic.UPGRADES_TIER_4 = ["intern", "ointment", "injection", "actuary"];
 Class.mega3.UPGRADES_TIER_4 = [/*"ultra3", "queller3", "hurler3", "slinker3", "mega5", "volley4", "spirit", "crank", */"autoMega3", "sequence"];
 Class.minigun.UPGRADES_TIER_4 = [/*"tommy", "machgun"*/];
 Class.musket.UPGRADES_TIER_4 = ["doubleMusket"/*, "flintlock", "arbalest"*/, "matchlock", "autoMusket"/*, "duelist", "bifold"*/];
+Class.nailgun.UPGRADES_TIER_4 = ["overnailer", "autoNailgun"];
 Class.necromancer.UPGRADES_TIER_4 = ["autoNecromancer"];
 Class.nimrod.UPGRADES_TIER_4 = [];
 Class.octoTank.UPGRADES_TIER_4 = ["decaTank", "tempest_AR", "gale", "octoTrapper", "demise", "autoOctoTank", "consolidation"];

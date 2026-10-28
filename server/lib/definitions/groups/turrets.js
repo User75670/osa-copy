@@ -761,6 +761,17 @@ Class.autoTurret = makeTurret({
         }
     ]
 }, {label: "Turret", fov: 0.8, extraStats: []});
+Class.machineAutoTurret = makeTurret({
+    GUNS: [
+        {
+            POSITION: [14, 11, 1.3, 8, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret, g.machineGun, { speed: 0.7, maxSpeed: 0.7 }]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}, {label: "Turret", fov: 0.8, extraStats: []});
 Class.megaAutoTurret = makeTurret({
     GUNS: [
         {
