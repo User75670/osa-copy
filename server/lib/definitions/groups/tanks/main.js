@@ -3754,7 +3754,7 @@ const dmca_censor_name = [
     "twin"
 ];
 for (let type of dmca_censor_name) {
-    Class[type].DMCA_CENSOR_NAME = true
+    Class[type].DMCA_CENSOR_NAME = true;
 };
 const dmca_censor_design = [
     "annihilator",
@@ -3802,5 +3802,5 @@ const dmca_censor_design = [
     "underseer"
 ];
 for (let type of dmca_censor_design) {
-    Class[type].DMCA_CENSOR_DESIGN = true
+    Class[type].DMCA_CENSOR_DESIGN = true;
 };

@@ -218,7 +218,7 @@ class socketManager {
 
     close(socket) {
         socket.closed = true;
-    // Figure out who the player was
+        // Figure out who the player was
         let player = socket.player,
             index = this.players.indexOf(player);
         // Remove it from any group if there was one...
@@ -282,7 +282,7 @@ class socketManager {
     }
     incoming(message, socket) {
         socket.status.requests++;
-    // Decode it
+        // Decode it
         let m = protocol.decode(message);
         // Remember who we are
         let player = socket.player;

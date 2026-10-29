@@ -4055,7 +4055,7 @@ Class.hewnTriple = {
                 LENGTH: 1,
                 WIDTH: 1,
                 X: 8,
-                ANGLE: -15,
+                ANGLE: -15
             }
         }
     ]
