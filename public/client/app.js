@@ -5734,7 +5734,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
                     // Legacy
                     {
-                        type: "checkbox", id: "optLegacyThemes",    label: "3D Mode",       column: 0, row: 0, section: "legacy", placeholder: true, tooltip: "[WIP] Make arras.io 3D.\nMay lower the frame rate.\nNote: This is a legacy option and will be removed in a future update." },
+                        type: "checkbox", id: "optLegacyThemes",    label: "3D Mode",       column: 0, row: 0, section: "legacy", placeholder: true, tooltip: "[WIP] [NOT IN ARRAS] Make arras.io 3D.\nMay lower the frame rate.\nNote: This is a legacy option and will be removed in a future update." },
                     {
                         type: "checkbox", id: "optLegacyThemes",    label: "Legacy Themes", column: 1, row: 0, section: "legacy", placeholder: true, tooltip: "[WIP] Display legacy themes in the options menu.\nNote: This is a legacy option and will be removed in a future update. " },
                 ];
