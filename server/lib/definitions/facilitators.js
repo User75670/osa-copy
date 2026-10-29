@@ -707,7 +707,7 @@ exports.makeDrive = (type, name = -1, projectile = "drone", options = {}) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
 
-    let hat = projectile === "swarm" || projectile === "tinyMinion" ? {
+    let hat = projectile === "swarm" || projectile === "tinyMinion" || options.forceTriangleHat ? {
         TYPE: ["triangleHat", {COLOR: "grey"}],
         POSITION: {
             SIZE: 8,

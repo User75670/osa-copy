@@ -1329,7 +1329,7 @@ Class.megaSpawner = {
             },
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.minion, g.spawner, {size: 0.8 }]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner, { size: 0.8 }]),
                 TYPE: "megaMinion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
