@@ -149,7 +149,7 @@ module.exports = {
 
             properties: {
                 mothership_time_limit: 30_000,
-                teams: 3,
+                teams: 2,
                 bot_cap: 30
             }
         },
