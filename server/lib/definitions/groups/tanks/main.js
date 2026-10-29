@@ -3705,9 +3705,7 @@ require("../tanks/scrapped.js");
 require("../tanks/retrograde.js");
 require("../tanks/armsRace.js");
 
-// The code below is intended for DMCA mode (a "super secret" option in arras that was likely intended for AF2026)
-return; // Since DMCA mode isn't a thing in OSA yet, we don't have to worry about it since all it does is screw up labels
-
+// DMCA mode (+ better handling for it)
 const dmca_censor_name = [
     "annihilator",
     "assassin",
@@ -3756,9 +3754,7 @@ const dmca_censor_name = [
     "twin"
 ];
 for (let type of dmca_censor_name) {
-    if (Class[type].LABEL) {
-        Class[type].LABEL += "/N";
-    }
+    Class[type].DMCA_CENSOR_NAME = true
 };
 const dmca_censor_design = [
     "annihilator",
@@ -3806,7 +3802,5 @@ const dmca_censor_design = [
     "underseer"
 ];
 for (let type of dmca_censor_design) {
-    if (Class[type].LABEL) {
-        Class[type].LABEL += "/D";
-    }
+    Class[type].DMCA_CENSOR_DESIGN = true
 };
