@@ -3,6 +3,7 @@ const { base } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 const { better_retrograde, label_correction } = require("../../groups/tanks/retrograde.js");
+if (!better_retrograde) return;
 
 require("./turrets.js");
 
