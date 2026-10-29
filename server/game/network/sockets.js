@@ -217,6 +217,7 @@ class socketManager {
     }
 
     close(socket) {
+        socket.closed = true;
     // Figure out who the player was
         let player = socket.player,
             index = this.players.indexOf(player);
@@ -280,6 +281,7 @@ class socketManager {
         util.log("[INFO]: The connection has closed. Views: " + global.gameManager.views.length + ". Clients: " + this.clients.length + ".");
     }
     incoming(message, socket) {
+        socket.status.requests++;
     // Decode it
         let m = protocol.decode(message);
         // Remember who we are
@@ -289,11 +291,8 @@ class socketManager {
             socket.kick("Malformed packet.");
             return 1;
         }
-        // Handle the request
-        if (socket.resolveResponse(m[0], m)) {
-            return;
-        }
-        switch (m.shift()) {
+        const packetType = m.shift();
+        switch (packetType) {
             case "k": { // key verification
                 if (m.length > 2) {
                     socket.kick("Ill-sized key request."); return 1; 
@@ -327,9 +326,10 @@ class socketManager {
                 }
             } break;
             case "s": { // spawn request
-                if (!socket.status.deceased) {
+                if (socket.status.spawning || !socket.status.deceased) {
                     socket.kick("Trying to spawn while already alive."); return 1; 
                 }
+                socket.status.spawning = true;
                 if (global.gameManager.private && !socket.permissions) {
                     return (
                         socket.talk("message", "This server seems to be private."),
@@ -401,6 +401,7 @@ class socketManager {
 
                 // Give it the room state and move the camera.
                 if (needsRoom) {
+                    socket.status.spawning = false;
                     if (Config.hidden) return socket.close(); // If the server is hidden then just kick the client.
                     this.newPlayer(socket);
                     socket.talk(
@@ -421,7 +422,7 @@ class socketManager {
                 }
                 let loop = setInterval(() => {
                     // You can put your code here to prevent players from spawning.
-                    if (!global.cannotRespawn && !global.gameManager.arenaClosed && socket.status.readyToSpawn) {
+                    if (!global.cannotRespawn && !global.gameManager.arenaClosed && socket.status.readyToSpawn && !socket.closed) {
                         clearInterval(loop);
                         let epackage = {};
                         epackage.name = name;
@@ -433,6 +434,7 @@ class socketManager {
                             epackage.braindamagemode = true;
                         }
                         this.initalizePlayer(epackage, socket);
+                        socket.status.spawning = false;
                     }
                 }, 20);
             } break;
@@ -595,7 +597,7 @@ class socketManager {
                     return;
                 }
                 // Verify the request
-                if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || !isFinite(branchId) || branchId < 0) {
+                if (typeof upgrade != "number" || upgrade < 0 || upgrade >= player.body.upgrades.length || typeof branchId != "number" || !isFinite(branchId) || branchId < 0) {
                     socket.kick("Bad upgrade request.");
                     return 1;
                 }
@@ -874,8 +876,7 @@ class socketManager {
                 socket.talk("m", Config.popup_message_duration, "Score saving is WIP.");
             } break;
             default: {
-                console.log(m);
-                console.log("Invalid registered packet." + m);
+                console.log("Unknown packet type: " + packetType);
             } break;
         }
     };
@@ -2536,29 +2537,12 @@ class socketManager {
                 timer = 0;
             }
         };
-        socket.awaiting = {};
-        socket.awaitResponse = function(options, callback) {
-            socket.awaiting[options.packet] = {
-                callback: callback,
-                timeout: setTimeout(() => {
-                    console.log("Socket did not respond to the eval packet, kicking...");
-                    socket.kick("Did not comply with the server's protocol.");
-                }, options.timeout)
-            };
-        };
-        socket.resolveResponse = function(id, packet) {
-            if (socket.awaiting[id]) {
-                clearTimeout(socket.awaiting[id].timeout);
-                socket.awaiting[id].callback(packet);
-                return true;
-            }
-            return false;
-        };
         // Set up the status container
         socket.status = {
             verified: false,
             deltaEntities: false,
             receiving: 0,
+            spawning: false,
             deceased: true,
             requests: 0,
             hasSpawned: false,
