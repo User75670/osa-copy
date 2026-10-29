@@ -799,7 +799,7 @@ class socketManager {
                 if (abort) break;
     
                 if (message !== original) {
-                    util.log("changed to: " + message);
+                    util.log(`Filtered message "${original}" changed to "${message}"`);
                 }
     
                 let id = player.body.id;
