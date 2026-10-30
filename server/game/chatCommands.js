@@ -88,7 +88,7 @@ const commands = [
             }
             let body = socket.player.body;
             if (!body.inBase()) {
-                socket.talk("m", 5_000, "You must be inside the base to use this command!");
+                socket.talk("m", 5_000, "You must be inside your base to use this command!");
                 return;
             }
             let stillTime = Date.now() - Math.max(body.lastMovementTime, body.lastFiredTime);
