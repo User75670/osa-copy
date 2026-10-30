@@ -197,7 +197,7 @@ var gameDraw = {
         lesbian_white = "#FFFFFF",
         lesbian_useSecondSet = five_bars < 2,
 
-        gay_transition = (now / 2000) % 1,
+        gay_transition = (now / 6000) % 1,
 
         ratio = (Math.sin(now / 2000 * Math.PI)) / 2 + 0.5,
         light_purple = { h: 258 / 360, s: 1, l: 0.84 },
