@@ -3700,10 +3700,10 @@ if (Config.siege) {
 
 // Load other mode branches
 require("../tanks/special.js");
-require("../tanks/nostalgia.js");
-require("../tanks/scrapped.js");
 require("../tanks/retrograde.js");
 require("../tanks/armsRace.js");
+require("../tanks/nostalgia.js");
+require("../tanks/scrapped.js");
 
 // DMCA mode (+ better handling for it)
 const dmca_censor_name = [

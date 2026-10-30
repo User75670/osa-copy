@@ -4060,36 +4060,6 @@ Class.hewnTriple = {
         }
     ]
 };
-Class.hewnTriple_old = {
-    PARENT: "genericTank",
-    LABEL: "Old Hewn Triple",
-    DANGER: 8,
-    GUNS: [
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8,
-                Y: -5.5,
-                ANGLE: -25
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble, { recoil: 1.15 }]),
-                TYPE: "bullet"
-            }
-        }, {delayIncrement: 0.5}),
-        ...weaponArray(weaponMirror({
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8,
-                Y: 5.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble]),
-                TYPE: "bullet"
-            }
-        }, {delayIncrement: 0.5}), 3)
-    ]
-};
 Class.hexaHealer = makeFlank("healer", 6, "Hexa-Healer", { extraStats: [g.flankGuard] });
 Class.hexaHealer = {
     PARENT: "genericHealer",

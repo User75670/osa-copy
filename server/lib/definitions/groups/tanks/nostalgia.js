@@ -535,7 +535,35 @@ Class.tornado_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 30
 Class.typhoon_old = makeWhirlwind("genericTank", { dualLayer: true, hat: "circleHat", hatSize: 28, hatLayer: 0, hat2: "circleHat", hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon" });
 Class.vortex_old = makeWhirlwind("genericTank", { enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex" });
 
-// Class Tree Modification
-if (Config.siege) {
-    removeUpgrades("whirlwind", 3, ["prophet"]);
+// Tier 4 (Level 60)
+Class.autoProdigy = makeAuto("prodigy");
+Class.oldHewnTriple = {
+    PARENT: "genericTank",
+    LABEL: "Old Hewn Triple",
+    DANGER: 8,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                Y: -5.5,
+                ANGLE: -25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        }, {delayIncrement: 0.5}),
+        ...weaponArray(weaponMirror({
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.hewnDouble]),
+                TYPE: "bullet"
+            }
+        }, {delayIncrement: 0.5}), 3)
+    ]
 };

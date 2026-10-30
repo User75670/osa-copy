@@ -539,4 +539,4 @@ Class.menu_addons = makeMenu("Addons Menu", {
         "menu_armsRace"
     ]
 });
-Class.menu_armsRace = makeMenu("Unused Arms Race", { boxLabel: "Unused AR", upgrades: [/*"duster", */"hewnTriple_old"] });
+Class.menu_armsRace = makeMenu("Unused Arms Race", { boxLabel: "Unused AR", upgrades: ["autoProdigy"/*, "duster"*/, "oldHewnTriple"] });
