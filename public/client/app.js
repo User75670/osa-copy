@@ -5221,7 +5221,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const entries = getKeybindEntries();
         const rows = Math.max(1, Math.ceil(entries.length / 2));
 
-        drawText("Keybinds", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
+        drawText("Keybinds", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP, 15.5, color.guiwhite, "center");
 
         const rects = [];
         entries.forEach((e, i) => {
@@ -5284,7 +5284,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const secretTooltips = [];
         const fullExtra = fullUnlocked ? 40 : 0;
         for (const [section, layout] of Object.entries(SECRET_SECTION_LAYOUT)) {
-            drawText(layout.title, PANEL_X + PANEL_WIDTH / 2, PANEL_Y + layout.titleY + (section === "secret" ? 0 : fullExtra), 16, color.guiwhite, "center");
+            drawText(layout.title, PANEL_X + PANEL_WIDTH / 2, PANEL_Y + layout.titleY + (section === "secret" ? 0 : fullExtra), 15.5, color.guiwhite, "center");
         }
         for (let i = 0; i < global.optionsCheckboxes.length; i++) {
             const cb = global.optionsCheckboxes[i];
@@ -5570,8 +5570,8 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // Draw tabs backgrounds and place clickables
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
             const x = PANEL_X + tabIndex * TAB_WIDTH * 1.162;
-            const tabX = x + 50;
-            const tabClickableX = tabX * clickableRatio;
+            const TAB_X = x + 50;
+            const tabClickableX = TAB_X * clickableRatio;
             const tabClickableY = TAB_Y * clickableRatio;
             const tabClickableW = TAB_WIDTH * clickableRatio;
             const tabClickableH = TAB_HEIGHT * clickableRatio;
@@ -5583,11 +5583,11 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             // Draw tab background
             ctx[2].lineWidth = 3;
             gameDraw.setColor(ctx[2], gameDraw.mixColors(color.grey, color.black, 0.3));
-            drawGuiRect(tabX, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
+            drawGuiRect(TAB_X, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
             if (tabHover) {
                 gameDraw.setColor(ctx[2], global.clickables.clicked ? color.guiblack : color.lgrey);
                 ctx[2].globalAlpha = global.clickables.clicked ? 0.10 : 1;
-                drawGuiRect(tabX, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
+                drawGuiRect(TAB_X, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
                 ctx[2].globalAlpha = 1;
             }
         }
@@ -5595,12 +5595,12 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // Draw tabs borders
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
             const x = PANEL_X + tabIndex * TAB_WIDTH * 1.162;
-            const tabX = x + 50;
+            const TAB_X = x + 50;
 
             // Draw tab border
             ctx[2].lineWidth = 3;
             gameDraw.setColor(ctx[2], color.black);
-            drawGuiRect(tabX, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
+            drawGuiRect(TAB_X, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
         }
 
         // Sliding tab background and border (above borders, below text)
@@ -5623,12 +5623,12 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // Draw tabs labels
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
             const x = PANEL_X + tabIndex * TAB_WIDTH * 1.162;
-            const tabX = x + 50;
+            const TAB_X = x + 50;
 
             // Tab label, centered on the tab
-            const cx = tabX + TAB_WIDTH / 2;
+            const cx = TAB_X + TAB_WIDTH / 2;
             const cy = TAB_Y + TAB_HEIGHT - 18;
-            drawText(TAB_NAMES[tabIndex][0], cx, cy, 16, color.guiwhite, "center");
+            drawText(TAB_NAMES[tabIndex][0], cx, cy, TAB_NAMES.length === 4 ? 13.5 : 16, color.guiwhite, "center");
         }
 
         // Draw tab content with fade animation
