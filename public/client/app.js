@@ -5357,6 +5357,10 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     }
 
     function drawOptionsMenu() {
+        global.ingameKeybindRects = null;
+        global.ingameThemeSlider = null;
+        global.ingameThemeNeon = null;
+
         // Initialize tab offset for sliding animation and menu height animation
         if (!global.optionsMenu_Anim.tabOffset) {
             global.optionsMenu_Anim.tabOffset = Smoothbar(global.optionsMenu_Anim.activeTab || 0, 2, 3, 0.08, 0.025, true);
@@ -6023,7 +6027,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].save();
         ctx[2].globalAlpha *= fadeKeybinds;
         ctx[2].translate(0, -scrollY);
-        if (fadeKeybinds > 0.01) {
+        if (fadeKeybinds > 0.01 && activeTab === 2) {
             // KEYBINDS TAB
             drawKeybindsTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio);
         }
