@@ -138,23 +138,7 @@ function init() {
             run: ({ socket, player }) => {
                 if (socket.permissions?.class) {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                    if (Config.siege) {
-                        player.body.define("smasher");
-                    } else {
-                        player.body.define("healer");
-                    }
-                }
-            }
-        },
-        {
-            name: "Preset Tank #4",
-            keys: [[["KEY_SPECIAL_PRESET_4", "4"]]],
-            permissionLevel: 1,
-            hidden: true,
-            run: ({ socket, player }) => {
-                if (Config.siege && socket.permissions?.class) {
-                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                    player.body.define("underseer");
+                    player.body.define("healer");
                 }
             }
         },

@@ -21,7 +21,7 @@ Class.basic = {
         }
     ],
     UPGRADES_TIER_1: ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "whirlwind"],
-    UPGRADES_TIER_2: ["smasher"]
+    UPGRADES_TIER_2: ["healer", "smasher"]
 };
 
 // Tier 1 (Level 15)
@@ -3691,11 +3691,8 @@ Class.xHunter = {
 };
 
 // Class Tree Modification
-if (Config.siege) {
-    removeUpgrades("basic", 2, ["smasher"]);
-    removeUpgrades("director", 2, ["underseer"]);
-
-    Class.basic.UPGRADES_TIER_2.push("healer");
+if (!Config.siege) {
+    removeUpgrades("basic", 2, ["healer"]);
 };
 
 // Load other mode branches

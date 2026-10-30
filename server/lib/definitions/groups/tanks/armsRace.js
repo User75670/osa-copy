@@ -5847,13 +5847,6 @@ if (!enable_missing_tanks) {
     }
 };
 
-if (Config.siege) {
-    removeUpgrades("directordrive", 3, ["underdrive"]);
-    removeUpgrades("doper", 3, ["overdose"]);
-
-    removeUpgrades("autoDirectordrive", 3, ["autoUnderdrive"]);
-};
-
 if (!free_tier_4) return;
 Object.keys(Class).forEach(type => {
     if (Class[type].UPGRADES_TIER_4) {
