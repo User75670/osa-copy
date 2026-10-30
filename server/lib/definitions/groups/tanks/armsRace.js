@@ -2365,41 +2365,6 @@ Class.autoSpawnerdrive = makeAuto("spawnerdrive", "Auto-Spawnerdrive", preset.ma
 Class.autoTriple = makeAuto("tripleTwin", "Auto-Triple");
 Class.autoUnderdrive = makeAuto("underdrive", "Auto-Underdrive", preset.makeAuto.drive);
 Class.avian = makeBird("single", "Avian");
-Class.band = makeAuto({
-    PARENT: "genericTank",
-    DANGER: 7,
-    STAT_NAMES: statnames.mixed,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 3),
-    TURRETS: weaponArray({
-        TYPE: ["autoTankGun", { INDEPENDENT: true }],
-        POSITION: {
-            SIZE: 11,
-            X: 8,
-            ANGLE: 180,
-            ARC: 190
-        }
-    }, 3)
-}, "Band");
 Class.battletrapper = makeBattle({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -2883,7 +2848,7 @@ Class.conjurer = {
     SHAPE: 6,
     MAX_CHILDREN: 15,
     BODY: Class.underseer.BODY,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: weaponArray([
         {
             POSITION: {
@@ -3226,7 +3191,7 @@ Class.doctor = {
     PARENT: "genericHealer",
     LABEL: "Doctor",
     STAT_NAMES: statnames.drone,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!",
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5411,7 +5376,7 @@ Class.vulcan = {
     BODY: {
         FOV: base.FOV * 1.1
     },
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!",
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5771,7 +5736,7 @@ Class.gunner.UPGRADES_TIER_4 = ["dam"];
 Class.healer.UPGRADES_TIER_4 = [/*"renovater", */"physician"];
 Class.hewnDouble.UPGRADES_TIER_4 = ["hewnTriple", "autoHewnDouble", "cleft", "skewnDouble", "hewnFlankDouble", "hewnGunner", "warkwawarkrk"];
 Class.hexaTank.UPGRADES_TIER_4 = ["tripleFlankTwin"];
-Class.hexaTrapper.UPGRADES_TIER_4 = [...["mega", "auto"].map(x => `${x}HexaTrapper`), "hexaMachine", "octoTrapper", "designer", "cozen", "refuge", "coop", "hexaMech", "hexaTrapGuard", "band"];
+Class.hexaTrapper.UPGRADES_TIER_4 = [...["mega", "auto"].map(x => `${x}HexaTrapper`), "hexaMachine", "octoTrapper", "designer", "cozen", "refuge", "coop", "hexaMech", "hexaTrapGuard"];
 Class.hunter.UPGRADES_TIER_4 = [/*"butcher", "reverberator"*/];
 Class.infestor.UPGRADES_TIER_4 = ["autoInfestor"];
 Class.launcher.UPGRADES_TIER_4 = [/*"seriemas", "supplant", "pumper"*/];

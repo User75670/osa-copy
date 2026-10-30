@@ -449,14 +449,20 @@ Class.spectator = {
         REGEN: 1e100
     },
     GUNS: [{
-        POSITION: [0, 0, 0, 0, 0, 0, 0],
+        POSITION: {
+            LENGTH: 0,
+            WIDTH: 0
+        },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
             TYPE: "bullet",
             ALPHA: 0
         }
     }, {
-        POSITION: [0, 0, 0, 0, 0, 0, 0],
+        POSITION: {
+            LENGTH: 0,
+            WIDTH: 0
+        },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, { reload: 0.25 }, g.fake]),
             TYPE: "bullet",

@@ -1,12 +1,15 @@
-const { combineStats, makeHat, makeMenu } = require("../facilitators.js");
-const { base } = require("../constants.js");
-const g = require("../gunvals.js");
-let dreadnoughts = "dreadnought_dreadsV2";
+const { combineStats, makeHat, makeMenu, removeUpgrades } = require("../../facilitators.js");
+const { base } = require("../../constants.js");
+const g = require("../../gunvals.js");
+let dreadnought = "dreadnought_dreadsV2";
 if (Config.classic_food) {
-    dreadnoughts = "dreadnought_dreadsV1";
+    dreadnought = "dreadnought_dreadsV1";
 };
 
-// Set the below variable to true to enable the Retrograde menu in Retrograde gamemodes.
+// Set the below variable to true to enable OSA-specific fixes and adjustments to the menus.
+const better_menus = false;
+
+// Set the below variable to true to enable the Retrograde menu in Retrograde.
 // This will replace the Daily Tank if one is set!
 const enable_retrograde_menu = false;
 
@@ -21,7 +24,7 @@ Class.menu_special = makeMenu("Special Menu", {
         "menu_nostalgia",
         "menu_scrapped",
         "menu_memes",
-        dreadnoughts,
+        dreadnought,
         "menu_shinyMember",
         "menu_addons"
     ]
@@ -168,11 +171,9 @@ Class.menu_bosses = makeMenu("Bosses Menu", {
         "mystical",
         "terrestrial",
         "celestial",
-        "diep",
-        "dev"
+        "diep"
     ].map(x => `menu_${x}Bosses`)
 });
-Class.menu_bosses.UPGRADES_TIER_0.push("menu_sentries", "bob");
 Class.menu_sentries = makeMenu("Sentries Menu", {
     color: "pink",
     upgrades: [
@@ -450,7 +451,7 @@ Class.menu_shinyMember = makeMenu("Shiny Member Menu", {
         "menu_nostalgia",
         "menu_scrapped",
         "menu_diep",
-        dreadnoughts,
+        dreadnought,
         "tracker3",
         "meOnMyWayToDoYourMom",
         "meDoingYourMom",
@@ -527,16 +528,27 @@ if (Config.retrograde && enable_retrograde_menu) {
     };
 };
 
-// Dynamic Addon Menu + OSA exclusive Menus
+// Dynamic Addon Menu + OSA fixes
 Class.menu_addons = makeMenu("Addons Menu", {
     tooltip: "Content that is (usually) not part of Open Source Arras but was added by someone else.",
     boxColor: "rainbow",
     upgrades: [
         "menu_youtuber",
-        "guillotine",
-        "banHammer",
+        "menu_gameAdmin",
+        "menu_devBosses",
         "menu_testing",
-        "menu_armsRace"
+        "menu_armsRace",
+        "menu_sentries",
+        "bob"
     ]
 });
-Class.menu_armsRace = makeMenu("Unused Arms Race", { boxLabel: "Unused AR", upgrades: ["autoProdigy"/*, "duster"*/, "oldHewnTriple"] });
+Class.menu_armsRace = makeMenu("Unused Arms Race", { boxLabel: "Unused AR", upgrades: ["aeronaut", "autoProdigy", "band", "duster", "oldHewnTriple", "virago"] });
+
+if (better_menus) {
+    removeUpgrades("menu_nostalgia", 0, ["quintuplet", "vulcan", "sniper3", "oldArmsman"]);
+    removeUpgrades("menu_scrapped", 0, ["menu_scrapped2", "rocketeer", "crowbar", "peashooter", "megaTrapper", "railgun", "megaSpawner"]);
+
+    Class.menu_bosses.UPGRADES_TIER_0.push("menu_devBosses", "menu_sentries", "bob");
+    Class.menu_nostalgia.UPGRADES_TIER_0.push(...Class.menu_armsRace.UPGRADES_TIER_0);
+    Class.menu_scrapped.UPGRADES_TIER_0.push("mender");
+};

@@ -3,19 +3,13 @@ const { base } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 
-// Placeholder Marker
-const placeholder = {
-    UPGRADE_COLOR: "black",
-    UPGRADE_TOOLTIP: "PLACEHOLDER MOCKUP"
-};
-
 // Tier 2 (Level 30)
 Class.crossfire = {
     PARENT: "genericTank",
     LABEL: "Crossfire",
     DANGER: 6,
     BODY: Class.sniper.BODY,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59,7 +53,7 @@ Class.fusion = {
     LABEL: "Fusion",
     DANGER: 6,
     TURRETS: preset.turret.assemblerHat,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {
@@ -85,7 +79,7 @@ Class.concussor = {
     LABEL: "Concussor",
     DANGER: 7,
     TURRETS: preset.turret.assemblerHat,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -123,7 +117,7 @@ Class.nexus = {
     LABEL: "Nexus",
     DANGER: 7,
     TURRETS: preset.turret.doubleAssemblerHat,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {
@@ -146,7 +140,7 @@ Class.payload = {
     LABEL: "Payload",
     DANGER: 7,
     TURRETS: preset.turret.assemblerHat,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {
@@ -176,7 +170,7 @@ Class.slugger = {
     LABEL: "Slugger",
     DANGER: 7,
     TURRETS: preset.turret.assemblerHat,
-    ...placeholder,
+    ...preset.placeholder,
     GUNS: [
         {
             POSITION: {

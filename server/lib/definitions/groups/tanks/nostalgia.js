@@ -1,6 +1,7 @@
-const { combineStats, removeUpgrades, makeAuto, makeFlank, makeGuard, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror } = require("../../facilitators.js");
+const { combineStats, removeUpgrades, makeAuto, makeFlank, makeGuard, makeGunner, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror } = require("../../facilitators.js");
 const { base, smshskl, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
+const preset = require("../../presets.js");
 
 // Tier 1 (Level 15)
 Class.desmos = {
@@ -536,7 +537,121 @@ Class.typhoon_old = makeWhirlwind("genericTank", { dualLayer: true, hat: "circle
 Class.vortex_old = makeWhirlwind("genericTank", { enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex" });
 
 // Tier 4 (Level 60)
+Class.aeronaut = {
+    PARENT: "genericTank",
+    LABEL: "Aeronaut",
+    DANGER: 8,
+    BODY: Class.launcher.BODY,
+    ...preset.placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 7.5,
+                WIDTH: 13,
+                ASPECT: -0.5,
+                X: 9
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 14,
+                ASPECT: -1.4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19.5,
+                WIDTH: 5.15,
+                ASPECT: 1.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.8,
+                WIDTH: 8,
+                ASPECT: -1.5
+            }
+        }
+    ]
+};
 Class.autoProdigy = makeAuto("prodigy");
+Class.band = makeAuto({
+    PARENT: "genericTank",
+    DANGER: 7,
+    STAT_NAMES: statnames.mixed,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ], 3),
+    TURRETS: weaponArray({
+        TYPE: ["autoTankGun", { INDEPENDENT: true }],
+        POSITION: {
+            SIZE: 11,
+            X: 8,
+            ANGLE: 180,
+            ARC: 190
+        }
+    }, 3)
+}, "Band");
+Class.duster = {
+    PARENT: "genericTank",
+    LABEL: "Duster",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 26,
+                WIDTH: 3,
+                DELAY: 2 / 3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.lowPower, g.machineGun, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 23,
+                WIDTH: 7,
+                DELAY: 1 / 3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.lowPower, g.machineGun, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 10,
+                ASPECT: 1.4,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+};
 Class.oldHewnTriple = {
     PARENT: "genericTank",
     LABEL: "Old Hewn Triple",
@@ -567,3 +682,4 @@ Class.oldHewnTriple = {
         }, {delayIncrement: 0.5}), 3)
     ]
 };
+Class.virago = makeGunner("eagle", "Virago", { gunLength: 20, renderBehind: true });

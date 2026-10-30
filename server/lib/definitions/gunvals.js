@@ -632,7 +632,7 @@ module.exports = {
         recoil: 0.7,
         size: 0.9,
         speed: 1.15,
-        maxSpeed: 1.1,
+        maxSpeed: 0.9,
         density: 1.5
     },
     mortar: {

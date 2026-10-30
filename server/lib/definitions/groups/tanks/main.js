@@ -186,7 +186,7 @@ Class.artillery = {
                 DELAY: 0.25
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, { size: 0.5 }]),
                 TYPE: "bullet",
                 LABEL: "Secondary"
             }
@@ -3701,6 +3701,7 @@ require("../tanks/retrograde.js");
 require("../tanks/armsRace.js");
 require("../tanks/nostalgia.js");
 require("../tanks/scrapped.js");
+require("../tanks/menus.js");
 
 // DMCA mode (+ better handling for it)
 const dmca_censor_name = [
