@@ -5562,7 +5562,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
 
-        drawText("ingame options is not finished, expect missing features and bugs lol", PANEL_X + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
+        //drawText("ingame options is not finished, expect missing features and bugs lol", PANEL_X + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
 
         // Initialize tab clickables
         global.optionsMenu_Anim.tabClickables.hide();
@@ -5647,9 +5647,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
             // OPTIONS TAB
 
-            drawText("Game Appearance", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
+            drawText("Game Appearance", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 31, 15.5, color.guiwhite, "center");
             drawText("UI Elements",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 350, 15.5, color.guiwhite, "center");
-            drawText("Extra",           PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 540, 15.5, color.guiwhite, "center");
+            drawText("Extra",           PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 511, 15.5, color.guiwhite, "center");
             drawText("Performance",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 710, 15.5, color.guiwhite, "center");
 
             if (!global.optionsCheckboxes) {
@@ -5719,7 +5719,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { type: "checkbox",  id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 2, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
 
                     // Performance
-                    { type: "checkbox",  id: "optDeltaEntities",       label: "Delta Entities",        column: 0, row: 0, section: "perf", tooltip: "Support delta entity updates from the server.\nTakes effect on next connection." },
+                    //{ type: "checkbox",  id: "optDeltaEntities",       label: "Delta Entities",        column: 0, row: 0, section: "perf", tooltip: "Support delta entity updates from the server.\nTakes effect on next connection." },
                     { type: "checkbox",  id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\nMay help to improve the frame rate." },
 
                     // Secrets
@@ -5761,9 +5761,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 const cb = global.optionsCheckboxes[i];
                 if (isSecretSection(cb.section)) continue;
                 let baseY = PANEL_Y + 45;
-                if (cb.section === "ui")    baseY = PANEL_Y + 370;
-                if (cb.section === "extra") baseY = PANEL_Y + 560;
-                if (cb.section === "perf")  baseY = PANEL_Y + 730;
+                if (cb.section === "ui")    baseY = PANEL_Y + 365;
+                if (cb.section === "extra") baseY = PANEL_Y + 525;
+                if (cb.section === "perf")  baseY = PANEL_Y + 725;
 
                 const baseXLeft  = PANEL_X + 20;
                 const baseXRight = PANEL_X + PANEL_WIDTH / 2 + 7.5;
