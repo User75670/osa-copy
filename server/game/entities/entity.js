@@ -346,6 +346,9 @@ class Entity extends EventEmitter {
             this.squiggle = this.settings.variesInSize ? ran.randomRange(0.8, 1.2) : 1;
         }
         if (set.RESET_UPGRADES) {
+            for (let instance of entities.values()) {
+                if (instance.settings.clearOnMasterUpgrade && instance.master.id === this.id) instance.kill();
+            };
             this.skill.setCaps(this.skill.caps.map(x => x));
             this.upgrades = [];
             this.isArenaCloser = false;
