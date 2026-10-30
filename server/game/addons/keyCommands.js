@@ -123,7 +123,7 @@ function init() {
                     player.body.define(socket.permissions?.class || Config.spawn_class);
                     if (!socket.status.specialTankWarned) {
                         socket.status.specialTankWarned = true;
-                        player.body.sendMessage(Config.token_message);
+                        player.body.sendMessage("Friendly reminder: Please do not repeatedly kill others with an overpowered tank.");
                     }
                 } else {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });

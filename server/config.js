@@ -266,7 +266,6 @@ module.exports = {
     // The message that appears once a player spawns.
     spawn_message: "You have spawned! Welcome to the game.\n"
                  + "You will be invulnerable until you move or shoot.",
-    token_message: "Friendly reminder: Please do not repeatedly kill others with an overpowered tank.",
 
     chat_message_duration: 15_000, // How long a chat message lasts in milliseconds.
     popup_message_duration: 10_000, // How long a popup message lasts in milliseconds.
