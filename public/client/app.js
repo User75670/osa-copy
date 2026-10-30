@@ -4739,13 +4739,13 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     }
 
     const THEME_SWATCHES = [
-        ["blue", "Blue"], ["vlgrey", "Eggs"], ["lgrey", "Walls"],
-        ["green", "Green"], ["gold", "Squares"], ["lgreen", "Health Bars"],
-        ["red", "Red"], ["orange", "Triangles"], ["teal", "Shield Bars"],
-        ["magenta", "Purple"], ["purple", "Pentagons"], ["grey", "Barrels"],
-        ["yellow", "Neutral"], ["aqua", "Hexagons"], ["white", "Background"],
-        ["dgrey", "Rogues"], ["pink", "Crashers"], ["guiblack", "Grid"],
-        ["guiwhite", "Text"], ["black", "Borders"],
+        ["blue",     "Blue"],    ["vlgrey", "Eggs"],      ["lgrey",    "Walls"],
+        ["green",    "Green"],   ["gold",   "Squares"],   ["lgreen",   "Health Bars"],
+        ["red",      "Red"],     ["orange", "Triangles"], ["teal",     "Shield Bars"],
+        ["magenta",  "Purple"],  ["purple", "Pentagons"], ["grey",     "Barrels"],
+        ["yellow",   "Neutral"], ["aqua",   "Hexagons"],  ["white",    "Background"],
+        ["dgrey",    "Rogues"],  ["pink",   "Crashers"],  ["guiblack", "Grid"],
+        ["guiwhite", "Text"],    ["black",  "Borders"],
     ];
 
     const OV_ROW1 = 41, OV_ROW2 = 81, OV_ROW3 = 121;
@@ -4753,7 +4753,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     const OV_BORDERS_HEAD = 503, OV_SLIDER_TOP = 524, OV_NEON_TOP = 561;
     const OV_CTRL_H = 28, OV_SWATCH = 28, OV_GAP = 13, OV_COL_PITCH = 145, OV_BADGE = 26;
     const OV_INSET_L = 24, OV_INSET_R = 18, OV_CODE_GAP = 11, OV_REMOVE_W = 98;
-    const OV_SLIDER_W = 152, OV_TITLE_TOP = 31;
+    const OV_SLIDER_W = 152, OV_TITLE_TOP = 30;
     const THEME_PANEL_H = 608;
     const KB_ROW_TOP = 47, KB_ROW_PITCH = 39;
     const SECRET_PANEL_H = 350;
@@ -5562,7 +5562,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
 
-        //drawText("ingame options is not finished, expect missing features and bugs lol", PANEL_X + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
+        drawText("ingame options is not finished, expect missing features and bugs lol", PANEL_X + PANEL_WIDTH / 2, PANEL_Y - 57, 9.5, color.guiwhite, "center");
 
         // Initialize tab clickables
         global.optionsMenu_Anim.tabClickables.hide();
@@ -5647,10 +5647,10 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
             // OPTIONS TAB
 
-            drawText("Game Appearance", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 31, 15.5, color.guiwhite, "center");
-            drawText("UI Elements",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 350, 15.5, color.guiwhite, "center");
-            drawText("Extra",           PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 511, 15.5, color.guiwhite, "center");
-            drawText("Performance",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 710, 15.5, color.guiwhite, "center");
+            drawText("Game Appearance", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP,       15.5, color.guiwhite, "center");
+            drawText("UI Elements",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP + 320, 15.5, color.guiwhite, "center");
+            drawText("Extra",           PANEL_X + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP + 480, 15.5, color.guiwhite, "center");
+            drawText("Performance",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP + 680, 15.5, color.guiwhite, "center");
 
             if (!global.optionsCheckboxes) {
                 global.optionsCheckboxes = [
