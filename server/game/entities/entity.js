@@ -345,10 +345,8 @@ class Entity extends EventEmitter {
             this.settings.variesInSize = set.VARIES_IN_SIZE;
             this.squiggle = this.settings.variesInSize ? ran.randomRange(0.8, 1.2) : 1;
         }
-        if (set.RESET_UPGRADES || set.RESET_STATS) {
-            let caps = this.skill.caps.map(x => x);
-            this.skill.setCaps(Array(10).fill(0));
-            this.skill.setCaps(caps);
+        if (set.RESET_UPGRADES) {
+            this.skill.setCaps(this.skill.caps.map(x => x));
             this.upgrades = [];
             this.isArenaCloser = false;
             this.ac = false;
@@ -356,6 +354,7 @@ class Entity extends EventEmitter {
             this.reset();
         }
         if (set.RESET_UPGRADE_MENU) this.upgrades = [];
+        if (set.RESET_STATS) this.skill.setCaps(Array(10).fill(0));
         if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER, this.ac = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
