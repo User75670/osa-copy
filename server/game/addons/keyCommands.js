@@ -118,15 +118,14 @@ function init() {
             tokenClass: "banHammer",
             hidden: true,
             run: ({ socket, player }) => {
+                player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                 if (socket.permissions?.class) {
-                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                     player.body.define(socket.permissions?.class || Config.spawn_class);
                     if (!socket.status.specialTankWarned) {
                         socket.status.specialTankWarned = true;
                         player.body.sendMessage("Friendly reminder: Please do not repeatedly kill others with an overpowered tank.");
                     }
                 } else {
-                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                     player.body.define("healer");
                 }
             }
