@@ -4756,11 +4756,11 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     const OV_SLIDER_W = 152, OV_TITLE_TOP = 30;
     const THEME_PANEL_H = 608;
     const KB_ROW_TOP = 47, KB_ROW_PITCH = 39;
-    const SECRET_PANEL_H = 350;
+    const SECRET_PANEL_H = global.optionsMenu_Anim.tabs[3][1];
     const SECRET_SECTION_LAYOUT = {
-        secret: { title: "Secret Options", titleY: 30, rowTop: 45 },
-        beta:   { title: "Beta Options",   titleY: 220, rowTop: 235 },
-        legacy: { title: "Legacy Options", titleY: 290, rowTop: 305 },
+        secret: { title: "Secret Options", titleY: 30,  rowTop: 45 },
+        beta:   { title: "Beta Options",   titleY: 230, rowTop: 245 },
+        legacy: { title: "Legacy Options", titleY: 310, rowTop: 325 },
     };
     const isSecretSection = (section) => section === "secret" || section === "beta" || section === "legacy";
 
