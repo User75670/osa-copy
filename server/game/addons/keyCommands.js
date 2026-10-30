@@ -512,21 +512,6 @@ function init() {
                 }
             }
         },
-        /*{
-            name: "Stronger",
-            keys: [[[83, "S"]]],
-            permissionLevel: 1,
-            run: ({ player, socket }) => {
-                let skills = Array(10).fill(15);
-                player.body.skill.setCaps(skills);
-                player.body.skill.set(skills);
-                player.body.FOV = 2;
-                player.body.settings.canGoOutsideRoom = true;
-                player.body.syncTurrets();
-                player.body.refreshBodyAttributes();
-                socket.talk("m", 4_000, "Maxed all stats!");
-            }
-        },*/
         {
             name: "Skill",
             keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP_ALT", "F1"]]],
