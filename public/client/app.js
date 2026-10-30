@@ -5126,7 +5126,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         refreshThemeCode();
     }
 
-    function drawThemeTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio) {
+    function drawThemeTab(PANEL_X, PANEL_Y, PANEL_WIDTH, clickableRatio) {
         const wrap = global.themeOverlay || ensureThemeOverlay();
         const o = wrap._ov;
         if (wrap.style.display !== "block") syncThemeOverlay();
@@ -5134,7 +5134,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const r = clickableRatio;
         const scrollY = global.optionsMenu_Anim.scrollOffsets && global.optionsMenu_Anim.scrollOffsets[1]
             ? global.optionsMenu_Anim.scrollOffsets[1].get() : 0;
-        const L = panelX + OV_INSET_L, W = PANEL_WIDTH - OV_INSET_L - OV_INSET_R, T = PANEL_Y - scrollY;
+        const L = PANEL_X + OV_INSET_L, W = PANEL_WIDTH - OV_INSET_L - OV_INSET_R, T = PANEL_Y - scrollY;
         const hw = (W - OV_GAP) / 2;
         const put = (el, x, y, w, h) => {
             el.style.left = (x * r) + "px";
@@ -5155,7 +5155,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             put(inp, L + col * OV_COL_PITCH, T + OV_GRID_TOP + row * OV_GRID_PITCH, OV_SWATCH, OV_SWATCH);
         });
 
-        const cx = panelX + PANEL_WIDTH / 2;
+        const cx = PANEL_X + PANEL_WIDTH / 2;
         drawText("Colors", cx, T + OV_COLORS_HEAD, 15.5, color.guiwhite, "center", true);
         drawText("Borders", cx, T + OV_BORDERS_HEAD, 15.5, color.guiwhite, "center", true);
         o.swatches.forEach((inp, i) => {
@@ -5208,20 +5208,20 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         global.ingameThemeNeon = { x: nx * cr, y: ny * cr, w: OV_SWATCH * cr, h: OV_SWATCH * cr };
     }
 
-    function drawKeybindsTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio) {
+    function drawKeybindsTab(PANEL_X, PANEL_Y, PANEL_WIDTH, clickableRatio) {
         if (global.themeOverlay) global.themeOverlay.style.display = "none";
         global.ingameThemeSlider = null;
         global.ingameThemeNeon = null;
         const scrollY = global.optionsMenu_Anim.scrollOffsets && global.optionsMenu_Anim.scrollOffsets[2]
             ? global.optionsMenu_Anim.scrollOffsets[2].get() : 0;
-        const L = panelX + 22, W = PANEL_WIDTH - 44;
+        const L = PANEL_X + 22, W = PANEL_WIDTH - 44;
         const T = PANEL_Y - scrollY;
         const cr = clickableRatio * global.ratio;
         const colW = W / 2;
         const entries = getKeybindEntries();
         const rows = Math.max(1, Math.ceil(entries.length / 2));
 
-        drawText("Keybinds", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
+        drawText("Keybinds", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
 
         const rects = [];
         entries.forEach((e, i) => {
@@ -5272,7 +5272,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     };
     global.applyCrosshairCursor();
 
-    function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio, fullUnlocked) {
+    function drawSecretTab(PANEL_X, PANEL_Y, PANEL_WIDTH, clickableRatio, fullUnlocked) {
         if (global.themeOverlay) global.themeOverlay.style.display = "none";
         global.ingameThemeSlider = null;
         global.ingameThemeNeon = null;
@@ -5284,7 +5284,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const secretTooltips = [];
         const fullExtra = fullUnlocked ? 40 : 0;
         for (const [section, layout] of Object.entries(SECRET_SECTION_LAYOUT)) {
-            drawText(layout.title, panelX + PANEL_WIDTH / 2, PANEL_Y + layout.titleY + (section === "secret" ? 0 : fullExtra), 16, color.guiwhite, "center");
+            drawText(layout.title, PANEL_X + PANEL_WIDTH / 2, PANEL_Y + layout.titleY + (section === "secret" ? 0 : fullExtra), 16, color.guiwhite, "center");
         }
         for (let i = 0; i < global.optionsCheckboxes.length; i++) {
             const cb = global.optionsCheckboxes[i];
@@ -5294,7 +5294,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 continue;
             }
             const layout = SECRET_SECTION_LAYOUT[cb.section];
-            const x = cb.column === 0 ? panelX + 20 : panelX + PANEL_WIDTH / 2 + 7.5;
+            const x = cb.column === 0 ? PANEL_X + 20 : PANEL_X + PANEL_WIDTH / 2 + 7.5;
             const y = PANEL_Y + layout.rowTop + (cb.section === "secret" ? 0 : fullExtra) + cb.row * LINE_HEIGHT;
             const hitSize = BOX_SIZE * clickableRatio;
             if (!cb.tooltipService) cb.tooltipService = {
@@ -5488,7 +5488,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // slide from off-screen left → visible
         const PANEL_VISIBLE_X = mainMenuAnim;
         const PANEL_HIDDEN_X = PANEL_VISIBLE_X - PANEL_WIDTH - 20;
-        const panelX = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X) - extraLeftX;
+        const PANEL_X = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X) - extraLeftX;
         const fullBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optFullSecretOptions");
         const fullUnlocked = fullBox ? !!fullBox.value : localStorage.getItem("optFullSecretOptionsChecked") === "true";
         const secretPanelH = SECRET_PANEL_H + (fullUnlocked ? 40 : 0);
@@ -5509,7 +5509,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         global.optionsMenu_Anim.tabs[3][1] = secretPanelH;
         const secretBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optSecretOptions");
         const secretUnlocked = secretBox ? !!secretBox.value : localStorage.getItem("optSecretOptionsChecked") === "true";
-        global.clickables.optionsMenu.mainMenuIdle.set(panelX * clickableRatio, PANEL_Y * clickableRatio, PANEL_WIDTH * clickableRatio, PANEL_HEIGHT * clickableRatio);
+        global.clickables.optionsMenu.mainMenuIdle.set(PANEL_X * clickableRatio, PANEL_Y * clickableRatio, PANEL_WIDTH * clickableRatio, PANEL_HEIGHT * clickableRatio);
         if (!secretUnlocked && (global.optionsMenu_Anim.activeTab || 0) === 3) {
             global.optionsMenu_Anim.activeTab = 0;
             global.optionsMenu_Anim.tabOffset.set(0);
@@ -5530,7 +5530,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const scrollY = scrollOffsetAnim.get();
 
         // Store live panel bounds for the wheel handler to read each frame
-        global.optionsMenu_Anim._panelX = panelX;        // already defined above
+        global.optionsMenu_Anim._PANEL_X = PANEL_X;        // already defined above
         global.optionsMenu_Anim._panelY = PANEL_Y;
         global.optionsMenu_Anim._panelW = PANEL_WIDTH;
         global.optionsMenu_Anim._panelH = PANEL_HEIGHT;
@@ -5552,9 +5552,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // background
         ctx[2].lineWidth = 3;
         gameDraw.setColor(ctx[2], color.grey);
-        drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT);
+        drawGuiRect(PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT);
         gameDraw.setColor(ctx[2], color.black);
-        drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, true);
+        drawGuiRect(PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, true);
 
         // Top tabs with interactive functionality
         const TAB_NAMES = secretUnlocked ? global.optionsMenu_Anim.tabs : global.optionsMenu_Anim.tabs.slice(0, 3);
@@ -5562,14 +5562,14 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
 
-        drawText("ingame options is not finished, expect missing features and bugs lol", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
+        drawText("ingame options is not finished, expect missing features and bugs lol", PANEL_X + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
 
         // Initialize tab clickables
         global.optionsMenu_Anim.tabClickables.hide();
 
         // Draw tabs backgrounds and place clickables
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
-            const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            const x = PANEL_X + tabIndex * TAB_WIDTH * 1.162;
             const tabX = x + 50;
             const tabClickableX = tabX * clickableRatio;
             const tabClickableY = TAB_Y * clickableRatio;
@@ -5594,7 +5594,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
         // Draw tabs borders
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
-            const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            const x = PANEL_X + tabIndex * TAB_WIDTH * 1.162;
             const tabX = x + 50;
 
             // Draw tab border
@@ -5605,7 +5605,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
         // Sliding tab background and border (above borders, below text)
         const currentTab = global.optionsMenu_Anim.tabOffset.get();
-        const bgX = panelX + currentTab * TAB_WIDTH * 1.162 + 50;
+        const bgX = PANEL_X + currentTab * TAB_WIDTH * 1.162 + 50;
         gameDraw.setColor(ctx[2], color.grey);
         drawGuiRect(bgX, TAB_Y, TAB_WIDTH, TAB_HEIGHT + 3); // Extend height to cover bottom border
         // Draw border without bottom
@@ -5622,7 +5622,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
         // Draw tabs labels
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
-            const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            const x = PANEL_X + tabIndex * TAB_WIDTH * 1.162;
             const tabX = x + 50;
 
             // Tab label, centered on the tab
@@ -5640,17 +5640,17 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].save();
         ctx[2].globalAlpha *= fadeOptions;
         ctx[2].beginPath();
-        ctx[2].rect(panelX, PANEL_Y + 15, PANEL_WIDTH, PANEL_HEIGHT - 30);
+        ctx[2].rect(PANEL_X, PANEL_Y + 15, PANEL_WIDTH, PANEL_HEIGHT - 30);
         ctx[2].clip();
         ctx[2].translate(0, -scrollY);
         if (fadeOptions > 0.01) {
 
             // OPTIONS TAB
 
-            drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
-            drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 385, 15.5, color.guiwhite, "center");
-            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 575, 15.5, color.guiwhite, "center");
-            drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 745, 15.5, color.guiwhite, "center");
+            drawText("Game Appearance", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
+            drawText("UI Elements",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 350, 15.5, color.guiwhite, "center");
+            drawText("Extra",           PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 540, 15.5, color.guiwhite, "center");
+            drawText("Performance",     PANEL_X + PANEL_WIDTH / 2, PANEL_Y + 710, 15.5, color.guiwhite, "center");
 
             if (!global.optionsCheckboxes) {
                 global.optionsCheckboxes = [
@@ -5660,9 +5660,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { type: "checkbox",   id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
                     { type: "checkbox",   id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
                     { type: "checkbox",   id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
-                    { type: "checkbox",   id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
-                    { type: "checkbox",   id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 6, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
-                    { type: "slidingBar", id: "strokeThickness",        label: "Border Thickness",      column: 0, row: 7, section: "appearance", tooltip: "Choose the thickness of the border of entities.",
+                    //{ type: "checkbox",   id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
+                    { type: "checkbox",   id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
+                    { type: "slidingBar", id: "strokeThickness",        label: "Border Thickness",      column: 0, row: 6, section: "appearance", tooltip: "Choose the thickness of the border of entities.",
                       maxValue: 6, maxLowestValue: 0.7, listTarget: "graphical", target: "borderChunk",
                       trigger: (mouse, data) => {
                         let pointer = optionsMenu_getPointer();
@@ -5685,14 +5685,14 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { type: "checkbox", id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
                     { type: "checkbox", id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
                     { type: "checkbox", id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
-                    { type: "checkbox", id: "optHexaGrid",            label: "Hexagon Grid",          column: 1, row: 5, section: "appearance", tooltip: "Make the background grid hexagonal.\n" + "May slightly lower the frame rate." },
-                    { type: "checkbox", id: "optFullSecretOptions",   label: "Full Secret Options",   column: 1, row: 6, section: "appearance", tooltip: "Unlock more of the secret options tab.\n" + "Note: This is not supposed to be public..." },
+                    //{ type: "checkbox", id: "optHexaGrid",            label: "Hexagon Grid",          column: 1, row: 5, section: "appearance", tooltip: "Make the background grid hexagonal.\n" + "May slightly lower the frame rate." },
+                    { type: "checkbox", id: "optFullSecretOptions",   label: "Full Secret Options",   column: 1, row: 5, section: "appearance", tooltip: "Unlock more of the secret options tab.\n" + "Note: This is not supposed to be public..." },
 
                     // UI Elements
                     { type: "checkbox", id: "optRenderUpgrades",      label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
                     { type: "checkbox", id: "optRenderPlayerBars",    label: "Player Bars",           column: 0, row: 1, section: "ui", tooltip: "Toggle the visibility of the score and level bars." },
                     { type: "checkbox", id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 2, section: "ui", tooltip: "Toggle the visibility of the kill bar, which shows the number of kills, assists, and boss kills." },
-                    { type: "checkbox", id: "optOldUiStyle",          label: "Classic UI",            column: 0, row: 3, section: "ui", tooltip: "Changes the UI to the classic layout." },
+                    //{ type: "checkbox", id: "optOldUiStyle",          label: "Classic UI",            column: 0, row: 3, section: "ui", tooltip: "Changes the UI to the classic layout." },
 
                     { type: "checkbox", id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Toggle the visibility of the leaderboard." },
                     { type: "checkbox", id: "optRenderMinimap",       label: "Minimap",               column: 1, row: 1, section: "ui", tooltip: "Toggle the visibility of the minimap." },
@@ -5761,12 +5761,12 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 const cb = global.optionsCheckboxes[i];
                 if (isSecretSection(cb.section)) continue;
                 let baseY = PANEL_Y + 45;
-                if (cb.section === "ui")    baseY = PANEL_Y + 400;
-                if (cb.section === "extra") baseY = PANEL_Y + 590;
-                if (cb.section === "perf")  baseY = PANEL_Y + 760;
+                if (cb.section === "ui")    baseY = PANEL_Y + 370;
+                if (cb.section === "extra") baseY = PANEL_Y + 560;
+                if (cb.section === "perf")  baseY = PANEL_Y + 730;
 
-                const baseXLeft  = panelX + 20;
-                const baseXRight = panelX + PANEL_WIDTH / 2 + 7.5;
+                const baseXLeft  = PANEL_X + 20;
+                const baseXRight = PANEL_X + PANEL_WIDTH / 2 + 7.5;
 
                 const x = (cb.column === 0 ? baseXLeft : baseXRight);
                 const y = baseY + cb.row * LINE_HEIGHT;
@@ -6017,8 +6017,8 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].translate(0, -scrollY);
         if (fadeTheme > 0.01 && activeTab === 1) {
             // THEME TAB
-            drawText("Theme", panelX + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP, 15.5, color.guiwhite, "center");
-            drawThemeTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio);
+            drawText("Theme", PANEL_X + PANEL_WIDTH / 2, PANEL_Y + OV_TITLE_TOP, 15.5, color.guiwhite, "center");
+            drawThemeTab(PANEL_X, PANEL_Y, PANEL_WIDTH, clickableRatio);
         } else if (global.themeOverlay) {
             global.themeOverlay.style.display = "none";
         }
@@ -6029,7 +6029,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].translate(0, -scrollY);
         if (fadeKeybinds > 0.01 && activeTab === 2) {
             // KEYBINDS TAB
-            drawKeybindsTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio);
+            drawKeybindsTab(PANEL_X, PANEL_Y, PANEL_WIDTH, clickableRatio);
         }
         ctx[2].restore();
 
@@ -6037,13 +6037,13 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].globalAlpha *= fadeSecret;
         ctx[2].translate(0, -scrollY);
         if (fadeSecret > 0.01 && activeTab === 3 && secretUnlocked) {
-            drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio, fullUnlocked);
+            drawSecretTab(PANEL_X, PANEL_Y, PANEL_WIDTH, clickableRatio, fullUnlocked);
         }
         ctx[2].restore();
 
         // Close button
         const CLOSE_SIZE = 30;
-        const closeX = panelX;
+        const closeX = PANEL_X;
         const closeY = PANEL_Y - CLOSE_SIZE - 20;
 
         global.clickables.optionsMenu.switchButton.place(
