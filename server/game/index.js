@@ -42,6 +42,12 @@ class gameHandler {
             }
         }
 
+        if (
+            (instance.socket?.status?.isAFK || other.socket?.status?.isAFK) &&
+            (instance.isPlayer || instance.isBot) &&
+            (other.isPlayer || other.isBot)
+        ) return 0;
+
         // Fast exit for inactive or invisible entities
         if (
             (instance.isArenaCloser && !instance.alpha) ||
