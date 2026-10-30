@@ -48,7 +48,7 @@ function init() {
         }
         return closest;
     }
-    function makeHelpList(command) {
+    function makeHelpList(command, showPrefix = true) {
         let name = command.name;
         let keyStr, defaultChar;
         if (command.displayKey) {
@@ -56,13 +56,14 @@ function init() {
             defaultChar = command.displayKey;
         } else {
             keyStr = command.keys.map(keys => {
+                if (!showPrefix) keys = keys.slice(-1);
                 return keys.map(k => {
                     if (typeof k[0] === "number") return k[1];
                     let prefix = k[0].startsWith("-") ? "-" : "";
                     return prefix + key(prefix ? k[0].slice(1) : k[0]);
                 }).join("+");
             }).join(" / ");
-            defaultChar = command.keys[0][0][1];
+            defaultChar = showPrefix ? command.keys[0][0][1] : "";
         }
         let description = command.description ?? false;
         let asterisk = permissionLevelValue(command.permissionLevel) > 1 ? "*" : "";
