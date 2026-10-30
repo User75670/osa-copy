@@ -780,6 +780,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     window.resizeEvent = resizeEvent;
     global.canvas = new Canvas();
     var c = global.canvas.cv;
+    var fullScreenWidth = global.screenWidth, fullScreenHeight = global.screenHeight;
     var ctx = [
         document.getElementById("gameCanvas-background").getContext("2d"),
         document.getElementById("gameCanvas-gameplay").getContext("2d"),
@@ -1173,6 +1174,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         config.graphical.coloredHealthbars = document.getElementById("coloredHealthbars").checked;
         config.graphical.separatedHealthbars = document.getElementById("separatedHealthbars").checked;
         config.graphical.lowResolution = document.getElementById("optLowResolution").checked;
+        config.graphical.force169AspectRatio = localStorage.getItem("optForce169AspectRatioChecked") === "true";
         config.graphical.showGrid = !document.getElementById("optNoGrid").checked;
         config.graphical.hexaGrid = document.getElementById("optHexaGrid").checked;
         config.graphical.coloredNest = document.getElementById("optColoredNest").checked;
@@ -2750,8 +2752,10 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
     function drawEntities(px, py, ratio, tick) {
         if (global.advanced.blackout.active) {
             document.getElementById("gameCanvas-background").style.display = "none";
-            ctx[1].drawImage(ctx[0].canvas, 0, 0, global.screenWidth, global.screenHeight);
-            if (global.glCanvas) ctx[1].drawImage(global.glCanvas, 0, 0, global.screenWidth, global.screenHeight);
+            const offsetX = (global.screenWidth - fullScreenWidth) / 2,
+                offsetY = (global.screenHeight - fullScreenHeight) / 2;
+            ctx[1].drawImage(ctx[0].canvas, offsetX, offsetY, fullScreenWidth, fullScreenHeight);
+            if (global.glCanvas) ctx[1].drawImage(global.glCanvas, offsetX, offsetY, fullScreenWidth, fullScreenHeight);
         } else if (document.getElementById("gameCanvas-background").style.display === "none") document.getElementById("gameCanvas-background").style.display = "block";
         // Draw things
         for (let instance of global.entities) {
@@ -4596,9 +4600,6 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         let px = ratio * global.player.renderx,
             py = ratio * global.player.rendery;
 
-        // Get the player's target
-        if (!global.mobile && !global.gamepadMode) calculateTarget();
-
         let spacing = 20;
         //draw the in game stuff
         drawFloor(px, py, ratio, tick);
@@ -5313,6 +5314,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 if (cb.id === "optBrainrotFilter") global.refreshBrainrotOption();
                 if (cb.id === "optCrosshairCursor") global.applyCrosshairCursor();
                 if (cb.id === "optRainbowTeamColors") config.game.rainbowTeamColors = !!cb.value;
+                if (cb.id === "optForce169AspectRatio") config.graphical.force169AspectRatio = !!cb.value;
                 if (cb.id === "optShowLocalhost") {
                     if (cb.value) global.servers.unshift({
                         id: "x",
@@ -5721,7 +5723,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     { type: "checkbox", id: "optRainbowTeamColors",   label: "Rainbow Team Colors",     column: 1, row: 0, section: "secret", tooltip: "Replace the colors of the teams with colors of the rainbow." },
                     { type: "checkbox", id: "optUncappedFrameRate",   label: "Uncapped Frame Rate",     column: 0, row: 1, section: "secret", tooltip: "Attempt to render as many frames as possible, regardless of your monitor FPS.\nNote that this option is unlikely to actually improve game performance, and may cause crashes or significant lag on weaker devices." },
                     { type: "checkbox", id: "optCopyScreenshots",     label: "Copy Screenshots",        column: 1, row: 1, section: "secret", tooltip: "Copy screenshots to the clipboard instead of downloading them." },
-                    { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", placeholder: true, tooltip: "[WIP] Always use a 16:9 aspect ratio to render the game." },
+                    { type: "checkbox", id: "optForce169AspectRatio", label: "Force 16:9 Aspect Ratio", column: 0, row: 2, section: "secret", tooltip: "Always use a 16:9 aspect ratio to render the game." },
                     { type: "checkbox", id: "optSelfCenteredMinimap", label: "Self Centered Minimap",   column: 1, row: 2, section: "secret", placeholder: true, tooltip: "[WIP] Make yourself always centered on the minimap." },
                     { type: "checkbox", id: "optBrainrotFilter",      label: '"Brainrot" Filter',       column: 0, row: 3, section: "secret", tooltip: "Add the option to filter \"brainrot\" words." },
                     { type: "checkbox", id: "optShowLocalhost",       label: "Show Localhost",          column: 0, row: 4, section: "secret", fullSecret: true, tooltip: "Display wss://localhost:5000 as one of the servers." },
@@ -6161,7 +6163,6 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             global.renderingInfo.entitiesWithName = 0;
         }
 
-        var ratio = config.graphical.screenshotMode ? 2 : util.getRatio();
         // Set the drawing style
         gameDraw.reanimateColors();
         for (let context of ctx) {
@@ -6204,9 +6205,42 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             global.metrics.lag = global.time - global.player.time;
         }
         if (global.GUIStatus.fullHDMode) ctx[2].translate(0.5, 0.5);
+
+        if (!global.mobile && !global.gamepadMode) calculateTarget();
+        fullScreenWidth = global.screenWidth;
+        fullScreenHeight = global.screenHeight;
+        const force169 = config.graphical.force169AspectRatio;
+        const viewHeight = force169 ? Math.min(fullScreenHeight, fullScreenWidth * 9 / 16) : fullScreenHeight,
+            viewWidth = force169 ? viewHeight * 16 / 9 : fullScreenWidth,
+            viewX = (fullScreenWidth - viewWidth) / 2,
+            viewY = (fullScreenHeight - viewHeight) / 2;
+        if (force169) {
+            ctx[0].globalAlpha = 1;
+            ctx[0].fillStyle = color.grey;
+            ctx[0].fillRect(0, 0, fullScreenWidth, fullScreenHeight);
+            global.screenWidth = global.vscreenSize = viewWidth;
+            global.screenHeight = global.vscreenSizey = viewHeight;
+            for (const context of [ctx[0], ctx[1]]) {
+                context.save();
+                context.translate(viewX, viewY);
+                context.beginPath();
+                context.rect(0, 0, viewWidth, viewHeight);
+                context.clip();
+            }
+        }
+
+        var ratio = config.graphical.screenshotMode ? 2 : util.getRatio();
         let p = performance.now();
         try {
-            drawGameplay(tick, ratio);
+            try {
+                drawGameplay(tick, ratio);
+            } finally {
+                if (force169) {
+                    for (const context of [ctx[0], ctx[1]]) context.restore();
+                    global.screenWidth = global.vscreenSize = fullScreenWidth;
+                    global.screenHeight = global.vscreenSizey = fullScreenHeight;
+                }
+            }
             drawGUI(tick, util.getScreenRatio());
             if (global.gameConnecting && !global.disconnected) {
                 drawConnectingScreen();

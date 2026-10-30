@@ -15,6 +15,7 @@ const config = {
         lerpAnimations: true,
         smoothcamera: true,
         lowResolution: false,
+        force169AspectRatio: false,
         oldUIStyle: false,
         coloredNest: false,
         colors: "normal",
