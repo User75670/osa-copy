@@ -371,8 +371,8 @@ const commands = [
             let sendAvailableDevCommandsMessage = () => {
                 let lines = [
                     "Help menu:",
-                    `- ${prefix} developer reload - reloads definitions.`,
-                    `- ${prefix} developer define <entity> - change your tank.`
+                    `- ${prefix} developer define <entity> - change your tank.`,
+                    `- ${prefix} developer reload - reloads definitions.`
                 ];
                 socket.talk("Em", 10_000, JSON.stringify(lines));
             };
@@ -383,7 +383,6 @@ const commands = [
                 } else {
                     socket.player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                     socket.player.body.define(args[1]);
-                    socket.talk("m", 5_000, `Changed to ${socket.player.body.label}`);
                 }
             } else if (command === "reload" || command === "reloaddefs" || command === "redefs" || command === "r") {
                 if (!global.reloadDefinitionsInfo) {
