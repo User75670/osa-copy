@@ -5306,7 +5306,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             };
             cb.tooltipService.x = x * clickableRatio;
             cb.tooltipService.y = (y + BOX_SIZE + 10) * clickableRatio;
-            global.clickables.optionsMenu.HoverBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+            global.clickables.optionsMenu.HoverBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize + (10.5 + measureText(cb.label, BOX_SIZE) * 0.65 + 1) * clickableRatio, hitSize);
             cb.tooltipService.targetAlpha = global.clickables.optionsMenu.HoverBoxes.check({ x: global.mouse.x, y: global.mouse.y }) === i ? 1 : 0;
             if (!cb.placeholder && cb.lastValue !== cb.value) {
                 cb.lastValue = cb.value;
@@ -5880,7 +5880,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     cb.tooltipService.y = hitY + hitSize + 10 - scrollY * clickableRatio;
                     if (fadeOptions > 0.2 && global.clickables.optionsMenu.optionBoxes.check(mpos) === -1) {
                         global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitYCalc, hitSize, hitSize);
-                        global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitYCalc, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+                        global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitYCalc, hitSize + (10.5 + measureText(cb.label, BOX_SIZE) * 0.65 + 1) * clickableRatio, hitSize);
                     } else {
                         global.clickables.optionsMenu.toggleBoxes.hide();
                         global.clickables.optionsMenu.HoverBoxes.hide();
