@@ -5732,6 +5732,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     },
                     { type: "checkbox",  id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 1, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
                     { type: "checkbox",  id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 2, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
+                    { type: "checkbox",  id: "optUnscaledOldSpawnPanel", label: "Unscaled Old Spawn Panel", column: 0, row: 3, section: "extra", placeholder: true, tooltip: "[WIP] Scale the original spawn panel to look the same regardless of display size." },
 
                     { type: "checkbox",  id: "optFancy",               label: "Fading Animation",      column: 1, row: 1, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\nMay slightly lower the frame rate." },
                     { type: "checkbox",  id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 2, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
@@ -5909,7 +5910,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     cb.tooltipService.x = hitX;
                     cb.tooltipService.y = hitY + hitSize + 10 - scrollY * clickableRatio;
                     if (fadeOptions > 0.2 && global.clickables.optionsMenu.optionBoxes.check(mpos) === -1) {
-                        global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitYCalc, hitSize, hitSize);
+                        if (!cb.placeholder) global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitYCalc, hitSize, hitSize);
                         global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitYCalc, hitSize + (10.5 + measureText(cb.label, BOX_SIZE) * 0.65 + 1) * clickableRatio, hitSize);
                     } else {
                         global.clickables.optionsMenu.toggleBoxes.hide();
@@ -5922,17 +5923,17 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                         global.optionsCheckboxes[hovered].tooltipService.targetAlpha = 1;
                     } else global.optionsCheckboxes[i].tooltipService.targetAlpha = 0;
 
-                    if (cb.lastValue !== cb.value) {
+                    if (!cb.placeholder && cb.lastValue !== cb.value) {
                         cb.lastValue = cb.value;
                         loadSettings();
                         if (cb.id === "optLowResolution") resizeEvent();
                     }
 
-                    const isOn = (cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value);
+                    const isOn = !cb.placeholder && ((cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value));
                     ctx[2].lineWidth = 3;
                     gameDraw.setColor(ctx[2], isOn ? color.green : color.guiwhite);
                     drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
-                    if (clickHover !== -1 && clickHover === i) {
+                    if (!cb.placeholder && clickHover !== -1 && clickHover === i) {
                         gameDraw.setColor(ctx[2], !isOn ? global.clickables.clicked ? color.guiblack : color.black : global.clickables.clicked ? color.black : color.guiwhite);
                         ctx[2].globalAlpha = global.clickables.clicked ? 0.25 : 0.2;
                         drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
