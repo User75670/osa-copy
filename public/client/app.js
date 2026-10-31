@@ -223,7 +223,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             util.submitToLocalStorage("optUiScale");
             localStorage.setItem("uiScaleSettings", "true");
         }
-        if (!document.getElementById("optNames").value) document.getElementById("optNames").value = "none";
+        if (!document.getElementById("optNames").value) document.getElementById("optNames").value = "offense";
         loadSettings();
         // Keybinds stuff
         keybinderHandler.initalize("controlSettings", "resetControls", "keybinds"); // Gameplay keys
