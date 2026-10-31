@@ -5244,7 +5244,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             }
             ctx[2].strokeStyle = color.black;
             drawGuiRect(x, y, OV_BADGE, OV_BADGE, true);
-            drawText(e.el.textContent || "-", x + OV_BADGE / 2, y + OV_BADGE / 2, 12, color.black, "center", true, 1, false);
+            drawText(getKeybind(e.el.dataset.key) || "", x + OV_BADGE / 2, y + OV_BADGE / 2, 12, color.black, "center", true, 1, false);
             ctx[2].save();
             ctx[2].beginPath();
             ctx[2].rect(x + OV_BADGE + 10, y, colW - OV_BADGE - 18, OV_BADGE);
