@@ -91,11 +91,6 @@ const commands = [
                 socket.talk("m", 5_000, "You must be inside your base to use this command!");
                 return;
             }
-            let stillTime = Date.now() - Math.max(body.lastMovementTime, body.lastFiredTime);
-            if (stillTime < 5_000) {
-                socket.talk("m", 5_000, "You must stay still for 5 seconds to use this command!");
-                return;
-            }
             socket.status.isAFK = true;
             if (socket.player.command) {
                 for (let key of ["up", "down", "left", "right", "lmb", "mmb", "rmb", "autofire", "autoalt", "override"]) socket.player.command[key] = false;
