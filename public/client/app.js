@@ -158,6 +158,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         util.retrieveFromLocalStorage("optFullHD");
         util.retrieveFromLocalStorage("optUiScale");
         util.retrieveFromLocalStorage("optNames");
+        util.retrieveFromLocalStorage("optCanvas");
         util.retrieveFromLocalStorage("optAllowIngameOptions");
         util.retrieveFromLocalStorage("optOldUiStyle");
         // Game
@@ -224,6 +225,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             localStorage.setItem("uiScaleSettings", "true");
         }
         if (!document.getElementById("optNames").value) document.getElementById("optNames").value = "offense";
+        if (!document.getElementById("optCanvas").value) document.getElementById("optCanvas").value = "auto";
         loadSettings();
         // Keybinds stuff
         keybinderHandler.initalize("controlSettings", "resetControls", "keybinds"); // Gameplay keys
@@ -1305,6 +1307,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         util.submitToLocalStorage("optFullHD");
         util.submitToLocalStorage("optUiScale");
         util.submitToLocalStorage("optNames");
+        util.submitToLocalStorage("optCanvas");
         util.submitToLocalStorage("optAllowIngameOptions");
         util.submitToLocalStorage("optOldUiStyle");
         // Game
@@ -5735,6 +5738,18 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
                     // Performance
                     //{ type: "checkbox",  id: "optDeltaEntities",       label: "Delta Entities",        column: 0, row: 0, section: "perf", tooltip: "Support delta entity updates from the server.\nTakes effect on next connection." },
+                    { type: "option",    id: "optCanvas",              label: "",                      column: 0, row: 0, section: "perf", tooltip: "[WIP] Select which canvas rendering driver to use.\nMay affect the frame rate.",
+                      optionData: Array.from(document.getElementById("optCanvas").options).map((option) => ({ value: option.value, label: option.textContent })),
+                      width: 202.5,
+                      location: "auto",
+                      trigger: (data, theChosenOne) => {
+                        let doc = document.getElementById(data.id);
+                        doc.value = theChosenOne.value;
+                        util.submitToLocalStorage(data.id);
+                        data.optionService.opened = false;
+                        data.optionService.selected = data.label;
+                      }
+                    },
                     { type: "checkbox",  id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\nMay help to improve the frame rate." },
 
                     // Secrets
