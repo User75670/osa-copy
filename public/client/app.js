@@ -157,6 +157,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         util.retrieveFromLocalStorage("showJoystick");
         util.retrieveFromLocalStorage("optFullHD");
         util.retrieveFromLocalStorage("optUiScale");
+        util.retrieveFromLocalStorage("optNames");
         util.retrieveFromLocalStorage("optAllowIngameOptions");
         util.retrieveFromLocalStorage("optOldUiStyle");
         // Game
@@ -222,6 +223,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             util.submitToLocalStorage("optUiScale");
             localStorage.setItem("uiScaleSettings", "true");
         }
+        if (!document.getElementById("optNames").value) document.getElementById("optNames").value = "none";
         loadSettings();
         // Keybinds stuff
         keybinderHandler.initalize("controlSettings", "resetControls", "keybinds"); // Gameplay keys
@@ -1302,6 +1304,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         util.submitToLocalStorage("showJoystick");
         util.submitToLocalStorage("optFullHD");
         util.submitToLocalStorage("optUiScale");
+        util.submitToLocalStorage("optNames");
         util.submitToLocalStorage("optAllowIngameOptions");
         util.submitToLocalStorage("optOldUiStyle");
         // Game
@@ -5710,6 +5713,18 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                         data.optionService.opened = false;
                         data.optionService.selected = data.label;
                         loadSettings();
+                      }
+                    },
+                    { type: "option",    id: "optNames",               label: "",                      column: 1, row: 0, section: "extra", tooltip: "[WIP] Filter offensive words from chat messages and player names.",
+                      optionData: Array.from(document.getElementById("optNames").options).map((option) => ({ value: option.value, label: option.textContent })),
+                      width: 202.5,
+                      location: "auto",
+                      trigger: (data, theChosenOne) => {
+                        let doc = document.getElementById(data.id);
+                        doc.value = theChosenOne.value;
+                        util.submitToLocalStorage(data.id);
+                        data.optionService.opened = false;
+                        data.optionService.selected = data.label;
                       }
                     },
                     { type: "checkbox",  id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 1, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
